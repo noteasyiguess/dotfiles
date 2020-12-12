@@ -203,4 +203,4 @@ exec_always ~/.config/sway/little_tidbits.sh
 
 include /etc/sway/config.d/*
 
-source ~/.config/sway/config_host
+include ~/.config/sway/config_host
