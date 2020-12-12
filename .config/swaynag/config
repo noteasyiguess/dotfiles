@@ -1,0 +1,14 @@
+font=Product Sans 13.5
+dismiss-button=
+button-dismiss-gap=5
+button-gap=15
+border-bottom-size=3
+button-padding=4
+
+[warning]
+background=3D3D3D
+button-background=666666
+border=666666
+border-bottom=f99b11
+# border=E95420
+text=F7F7F7

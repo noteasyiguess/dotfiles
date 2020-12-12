@@ -1,0 +1,10 @@
+font=Product Sans 14
+background-color=#3D3D3D
+text-color=#FFFFFF
+border-color=#E95420
+height=200
+anchor=bottom-left
+border-radius=10
+default-timeout=8000
+border-size=5
+format=<b>%s</b>\n%b

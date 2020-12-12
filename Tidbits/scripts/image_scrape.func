@@ -1,0 +1,12 @@
+# This script is intented to be sourced, NOT run
+
+function extract_all_images() {
+   wget "$1" -O webpage.html
+   cat webpage.html| rg '".*?"' -o | rg '\.(jpg|png|tiff|gif|bmp|jpeg|raw)"' | sed 's/"//g' > all_images
+}
+
+function down_all_images() {
+   while read line; do
+      wget "$line" done < all_images
+   done < "$1"
+}

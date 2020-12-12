@@ -1,0 +1,93 @@
+#!/bin/python3
+
+import subprocess
+import sys
+import os
+import shutil
+import requests
+
+# Default values for these options
+# If found in environment variable they are used instead
+OPTIONS = {
+    'BM_ARCH': 'default',
+    'BM_MANVERSION': '+'.join(('FreeBSD', '12.2-stable')),
+    'BM_VIEWER_PDF': 'zathura',
+    'BM_VIEWER_ASCII': 'less',
+}
+
+if __name__ == '__main__':
+    if '-h' in sys.argv:
+        print(
+            '''{prog} - View online FreeBSD man pages in a terminal pager or pdf viewer
+Usage: {prog} [options...] manpage [section]
+\t-a - Output as pdf instead of the default ascii
+\t-l - List out all the customizable environment variables and their defaults
+'''.format(prog=sys.argv[0]), file=sys.stderr)
+        sys.exit(1)
+
+    elif '-l' in sys.argv:
+        for opt in OPTIONS:
+            print(opt, '=', OPTIONS[opt])
+        sys.exit(0)
+
+    else:
+        # Try reading & replacing from the environment variables
+        for opt in OPTIONS:
+            env_value = os.environ.get(opt, OPTIONS[opt])
+            OPTIONS[opt] = env_value
+
+        # Setup for request
+        is_alt, manpage, section = False, None, 0
+
+        # Trick to interpret the args correctly
+        i = 0
+        for arg in sys.argv[1:]:
+            if arg == '-a':
+                is_alt = True
+
+            else:
+                if i == 0:
+                    manpage = arg
+                    i += 1
+                else:
+                    section = arg
+
+        fmt = 'pdf' if is_alt else 'ascii'
+
+        if manpage is None:
+            print('Please provide the manpage to read', file=sys.stderr)
+            sys.exit(1)
+
+        # Print details
+        print(f'Printing manpage of {manpage} from section {"any" if section == 0 else section}', file=sys.stderr)
+        print('Downloading page...', file=sys.stderr)
+
+        try:
+            res = requests.get(
+                'https://www.freebsd.org/cgi/man.cgi'
+                f'?query={manpage}&apropos=0&sektion={section}'
+                f'&manpath={OPTIONS["BM_MANVERSION"]}&arch={OPTIONS["BM_ARCH"]}'
+                f'&format={fmt}'
+            )
+
+        except requests.Timeout as e:
+            print('Timed out:', e, file=sys.stderr)
+        except requests.ConnectionError as e:
+            print('Connection error:', e, file=sys.stderr)
+        except requests.HTTPError as e:
+            print('HTTP error:', e, file=sys.stderr)
+        except requests.TooManyRedirects as e:
+            print('Too many redirects:', e, file=sys.stderr)
+        except requests.RequestException as e:
+            print('request library exception:', e,
+                  file=sys.stderr)
+        else:
+            prog = OPTIONS['BM_VIEWER_' + fmt.upper()]
+
+            print(f'Downloaded. Viewing in {prog}', file=sys.stderr)
+            subprocess.run((prog, '-'), input=res.content)
+
+            sys.exit(0)
+
+        print('Failed donwnloading :/')
+        sys.exit(2)

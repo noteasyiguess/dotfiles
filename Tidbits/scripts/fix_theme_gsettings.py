@@ -1,0 +1,49 @@
+#!/bin/python3
+import subprocess
+import os
+import sys
+
+DEF_CURSOR_SIZE = 24
+
+is_set = True
+for arg in sys.argv[1:]:
+    if arg.lower() == 'get':
+        is_set = False
+
+print('Operating in', 'set' if is_set else 'get', 'mode', file=sys.stderr)
+
+# Things to set
+# gsettings -> gtk3.0/settings.ini mapping
+mapping = {
+    'gtk-theme': 'gtk-theme-name',
+    'icon-theme': 'gtk-icon-theme-name',
+    'font-name': 'gtk-font-name',
+    'document-font-name': 'gtk-font-name',
+    'cursor-theme': 'gtk-cursor-theme-name',
+    'cursor-size': 'gtk-cursor-theme-size'
+}
+
+gtk3_settings = {}
+
+with open(os.getenv('HOME') + '/.config/gtk-3.0/settings.ini') as gtk3_settings_file:
+    for line in gtk3_settings_file:
+        if '=' in line: #then this we are interested in 
+            key, value = line.split('=')
+            gtk3_settings[key.strip()] = value.strip()
+
+for gsettings_name in mapping:
+    gtk3_settings_name = mapping[gsettings_name]
+    data = gtk3_settings[gtk3_settings_name]
+
+    if gtk3_settings_name == 'gtk-cursor-theme-size' and data == '0':
+        data = str(DEF_CURSOR_SIZE)
+
+    if is_set:
+        subprocess.run(['gsettings', 'set', 'org.gnome.desktop.interface', gsettings_name, data], check=True)
+        print('Set', gsettings_name, 'to', data)
+    else:
+        print(gsettings_name, '= ', end='')
+        sys.stdout.flush()
+        subprocess.run(['gsettings', 'get', 'org.gnome.desktop.interface', gsettings_name], check=True)
+
+print('Done!', file=sys.stderr)
