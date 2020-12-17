@@ -10,3 +10,5 @@ PATH=$(python3 -c 'import os; from collections import OrderedDict as od; \
 
 LD_LIBRARY_PATH=$(python3 -c 'import os; from collections import OrderedDict as od; \
    p=os.environ["LD_LIBRARY_PATH"].split(":"); print(":".join(od.fromkeys(p)))')
+
+source ~/Tidbits/scripts/crun.func

@@ -28,7 +28,8 @@ output * bg ~/.cache/bg fill
 ### Idle configuration
 exec swayidle -w \
          timeout 300 'swaylock -f' \
-         timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+         timeout 450 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+         timeout 600 'systemctl suspend' \
          before-sleep 'swaylock -f'
 
 ### Input configuration

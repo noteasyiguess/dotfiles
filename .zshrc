@@ -1,17 +1,20 @@
 export BROWSER=firefox
 export EDITOR=vim
+export CARGO_TARGET_DIR=~/.cache/rust_target
 #export MOST_INITFILE=~/.config/most/most.rc
 #export MANPAGER=most
 #export PAGER=most
 
 # Enable colors
 autoload -U colors && colors
-PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%1d%{$fg[red]%}]%{$fg[cyan]%} %{%G☸%} %{$reset_color%}%b "
+PS1="%B%{$fg[blue]%}%n%{$fg[green]%}  %1d%{$fg[yellow]%} %{%G₹%}%{$reset_color%}%b "
+# PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%1d%{$fg[red]%}]%{$fg[cyan]%} %{%G%} %{$reset_color%}%b "
 
 # Historical symbols
 # ☸
 # 𑓇
 # 🕉
+# 
 
 # Enable history
 HISTFILE=~/.cache/zsh/history
@@ -99,7 +102,7 @@ hex() {
    fi
 }
 
-# source ~/own-configs/scripts/crun.func
+source ~/Tidbits/scripts/crun.func
 
 # Colored man
 man() {
@@ -138,9 +141,13 @@ function i_am_bored() {
     done
 }
 
-function set_sway_wallpaper() {
-    cp "$1" ~/.cache/bg
+function set_sway_bg() {
+    ln "$(realpath $1)" ~/.cache/bg -sf
     swaymsg output '*' background ~/.cache/bg fill
+}
+
+function set_sway_lockbg() {
+    ln "$(realpath $1)" ~/.cache/lockbg -sf
 }
 
 function cdl() {
