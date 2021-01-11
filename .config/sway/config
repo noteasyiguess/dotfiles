@@ -11,6 +11,8 @@ set $up k
 set $right l
 
 set $term alacritty
+#set $term kitty
+#set $term footclient
 
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
@@ -168,8 +170,10 @@ bindsym $mod+r mode "resize"
 # Read `man 5 sway-bar` for more information about this section.
 bar {
     position top
+    mode hide
     swaybar_command waybar
 }
+bindsym $mod+y exec killall -SIGUSR1 waybar
 
 # Bindings
 bindsym $mod+Alt+Up sticky toggle
@@ -195,12 +199,17 @@ bindsym XF86AudioPrev exec playerctl previous
 # Autostart
 exec dex \
     /usr/share/applications/polkit-gnome-authentication-agent-1.desktop \
-    /usr/share/applications/redshift-gtk.desktop
+    /usr/share/applications/redshift-gtk.desktop \
+    /etc/xdg/autostart/gnome-keyring-pkcs11.desktop \
+    /etc/xdg/autostart/gnome-keyring-secrets.desktop \
+    /etc/xdg/autostart/gnome-keyring-ssh.desktop
 
 exec mako
+#exec_always foot --server
 
 for_window [app_id="waywindow"] floating enable
 exec_always ~/.config/sway/little_tidbits.sh
+#exec killall -SIGUSR1 waybar #Hide at the start
 
 include /etc/sway/config.d/*
 

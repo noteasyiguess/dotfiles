@@ -8,10 +8,11 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
 Plug 'preservim/nerdcommenter'
-Plug 'ryanoasis/vim-devicons'
-Plug 'puremourning/vimspector'
+Plug 'vimwiki/vimwiki'
+"Plug 'puremourning/vimspector'
 Plug 'mswift42/vim-themes'
 Plug 'rafi/awesome-vim-colorschemes'
+Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 " Airline configs
@@ -31,10 +32,12 @@ endif
 
 if exists('+termguicolors')
    set termguicolors
-   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+   let &t_ut=''
+   "let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+   "let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif 
 
+set encoding=UTF-8
 set nocompatible
 
 " enable syntax and plugins
@@ -103,14 +106,15 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 nnoremap <Leader>ee :!crun %<CR>
 nnoremap <Leader>eo :!make -f logl.make TARGET_SRC=% run<CR>
 nnoremap <Leader>co :!make -f logl.make TARGET_SRC=% clean<CR>
-" nmap <Leader>ew :!crun_wayland %<CR>
+nmap <Leader>ew :!crun_wayland %<CR>
+nnoremap <Leader>p :!python3 %<CR>
 
 " Use <c-space> to trigger completion.
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
+"if has('nvim')
+  "inoremap <silent><expr> <c-space> coc#refresh()
+"else
+  "inoremap <silent><expr> <c-@> coc#refresh()
+"endif
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -122,6 +126,7 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gh :CocCommand clangd.switchSourceHeader <CR>
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
