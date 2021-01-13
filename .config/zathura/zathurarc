@@ -18,7 +18,7 @@ set guioptions ""
 
 # zathurarc-dark
 
-set font "Fira Sans 16"
+set font "Noto Sans 16"
 set default-bg "#282828" #00
 set default-fg "#FABD2F" #01 
 

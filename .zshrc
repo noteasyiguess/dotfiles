@@ -1,13 +1,13 @@
 export BROWSER=firefox
-export EDITOR=vim
+export EDITOR=nvim
 export CARGO_TARGET_DIR=~/.cache/rust_target
 #export MOST_INITFILE=~/.config/most/most.rc
 #export MANPAGER=most
 #export PAGER=most
 
 # Enable colors
-autoload -U colors && colors
-PS1="%B%{$fg[blue]%}%n%{$fg[green]%}  %1d%{$fg[yellow]%} %{%G₹%}%{$reset_color%}%b "
+#autoload -U colors && colors
+#PS1="%B%{$fg[blue]%}%n%{$fg[green]%}  %1d%{$fg[yellow]%} %{%G₹%}%{$reset_color%}%b "
 # PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%1d%{$fg[red]%}]%{$fg[cyan]%} %{%G%} %{$reset_color%}%b "
 
 # Historical symbols
@@ -88,8 +88,8 @@ lfcd() {
 }
 bindkey -s '^o' 'lfcd\n'
 
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+#source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Useful functions
 hex() {
@@ -116,7 +116,7 @@ man() {
 }
 
 # Aliases
-# alias -g vim='nvim'
+alias -g vim='nvim'
 alias -g pm='pacman'
 alias -g py='python3'
 alias pr='paru'

@@ -198,12 +198,14 @@ bindsym XF86AudioPrev exec playerctl previous
 
 # Autostart
 exec dex \
-    /usr/share/applications/polkit-gnome-authentication-agent-1.desktop \
-    /usr/share/applications/redshift-gtk.desktop \
     /etc/xdg/autostart/gnome-keyring-pkcs11.desktop \
     /etc/xdg/autostart/gnome-keyring-secrets.desktop \
-    /etc/xdg/autostart/gnome-keyring-ssh.desktop
+    /etc/xdg/autostart/gnome-keyring-ssh.desktop \
+    # /usr/share/applications/polkit-gnome-authentication-agent-1.desktop \
+    # /usr/share/applications/redshift-gtk.desktop \
 
+exec wlsunset -l 28.7 -L 77.1
+exec /usr/libexec/polkit-gnome-authentication-agent-1
 exec mako
 #exec_always foot --server
 
