@@ -12,7 +12,8 @@ o.scrolloff = 3
 o.sidescrolloff = 3
 o.completeopt = 'menuone,noinsert,noselect'
 o.shortmess = o.shortmess .. 'c'
-o.showmode = true
+o.showmode = false
+o.mouse = 'a'
 
 wo.relativenumber = true
 wo.signcolumn = 'number'

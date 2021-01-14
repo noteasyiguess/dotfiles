@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Detect and the compile a single file accordingly
 crun() {
     _has_extension() {
