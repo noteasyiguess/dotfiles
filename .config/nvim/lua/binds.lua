@@ -1,15 +1,29 @@
 local opt = {noremap = true}
 local opts = {noremap = true, silent = true}
 
-local noremap = vim.api.nvim_set_keymap
+local map = vim.api.nvim_set_keymap
 
-noremap('n', '<Leader>u', ':update<CR>', opts)
-noremap('n', '<Leader><space>', ':nohlsearch<CR>', opts)
+map('n', '<Leader>u', ':update<CR>', opts)
+map('n', '<Leader><space>', ':nohlsearch<CR>', opts)
 
-noremap('n', '<Leader>l', ':!lua %<CR>', opt)
-noremap('n', '<Leader>p', ':!python3 %<CR>', opt)
+map('n', '<Leader>l', ':!lua %<CR>', opt)
+map('n', '<Leader>p', ':!python3 %<CR>', opt)
 
-noremap('n', '<C-m>', ':NvimTreeOpen<CR>', opts)
-noremap('n', '<C-n>', ':NvimTreeToggle<CR>', opts)
+map('n', '<C-m>', ':NvimTreeOpen<CR>', opts)
+map('n', '<C-n>', ':NvimTreeToggle<CR>', opts)
 
-vim.api.nvim_exec('autocmd TermOpen term://* startinsert', false)
+-- Termdebug
+map('n', '<F5>', ':Continue<CR>', opts)
+map('n', '<F6>', ':Stop<CR>', opts)
+
+map('n', '<F7>', ':Break<CR>', opt)
+map('n', '<F8>', ':Clear<CR>', opt)
+
+map('n', '<F10>', ':Over<CR>', opts)
+map('n', '<F11>', ':Step<CR>', opts)
+map('n', '<F12>', ':Finish<CR>', opts)
+
+-- Telescope
+map('n', '<Leader>f', ':Telescope find_files<CR>', opts)
+
+vim.api.nvim_command('autocmd TermOpen term://* startinsert')

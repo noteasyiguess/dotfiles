@@ -3,6 +3,9 @@ local bo = vim.bo
 local wo = vim.wo
 local g = vim.g
 
+vim.api.nvim_command('filetype plugin on')
+vim.api.nvim_command('syntax on')
+
 o.splitright = true
 o.splitbelow = true
 o.smartcase = true
@@ -27,8 +30,13 @@ o.expandtab, bo.expandtab = true, true
 
 g.mapleader = ' '
 
+-- Termdebug
+g.termdebug_wide = 1 --Vertical split
+g.termdebug_useFloatingHover = 0 --Show evaluations in the ex window
+
 -- Colorscheme
-g.colors_name = 'sonokai'
+--g.colors_name = 'sonokai'
+g.colors_name = 'gruvbox-material'
 o.background = 'dark' --Set the background too, to apply the colors
 
 -- Completion

@@ -1,4 +1,5 @@
 vim.cmd('packadd packer.nvim')
+vim.cmd('packadd termdebug')
 
 return require('packer').startup(
   function()
@@ -14,7 +15,7 @@ return require('packer').startup(
     }
 
     use 'preservim/nerdcommenter'
-    use 'tmsvg/pear-tree'
+    use 'jiangmiao/auto-pairs'
     use 'vimwiki/vimwiki'
 
     -- Coloschemes
