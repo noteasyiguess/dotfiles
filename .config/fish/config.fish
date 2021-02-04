@@ -1,4 +1,4 @@
-set -x PATH ~/.local/bin ~/.cargo/bin ~/Tidbits/scripts $PATH
+set -x PATH ~/.local/bin ~/.cargo/bin ~/Tidbits/scripts /usr/sbin $PATH
 set -x EDITOR nvim
 set -x SHELL /bin/fish
 set -x MANPAGER "$EDITOR +Man!"

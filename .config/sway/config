@@ -180,9 +180,9 @@ bindsym $mod+Alt+Up sticky toggle
 bindsym $mod+Alt+l exec pkill -USR1 swayidle
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +2% #increase sound volume
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -2% #decrease sound volume
-bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle # mute sound
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +2%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -2%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 # Touchpad controls
 # bindsym XF86TouchpadToggle exec /some/path/toggletouchpad.sh # toggle touchpad
@@ -209,7 +209,7 @@ exec /usr/libexec/polkit-gnome-authentication-agent-1
 exec mako
 #exec_always foot --server
 
-for_window [app_id="waywindow"] floating enable
+for_window [app_id="wlfw"] floating enable
 exec_always ~/.config/sway/little_tidbits.sh
 #exec killall -SIGUSR1 waybar #Hide at the start
 

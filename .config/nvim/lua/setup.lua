@@ -7,11 +7,9 @@ require'nvim-treesitter.configs'.setup {
   textobjects = { enable = true },
 }
 
--- completion-nvim & nvim-lspconfig
+-- nvim-lspconfig
 local nvim_lsp = require('lspconfig')
 local on_attach = function(client, bufnr)
-  require'completion'.on_attach()
-
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
@@ -63,6 +61,18 @@ local servers = { 'pyls', 'clangd' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup { on_attach = on_attach }
 end
+
+-- nvim-compe
+require'compe'.setup {
+  enabled = true;
+  debug = false;
+
+  source = {
+    path = true;
+    --buffer = true;
+    nvim_lsp = true;
+  };
+}
 
 -- Devicons
 require'nvim-web-devicons'.setup {

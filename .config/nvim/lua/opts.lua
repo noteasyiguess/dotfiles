@@ -21,6 +21,7 @@ o.mouse = 'a'
 wo.relativenumber = true
 wo.signcolumn = 'number'
 wo.wrap = false
+wo.cursorline = true
 
 o.tabstop, bo.tabstop = 2, 2
 o.softtabstop, bo.softtabstop = 2, 2

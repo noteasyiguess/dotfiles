@@ -3,13 +3,16 @@ local opts = {noremap = true, silent = true}
 
 local map = vim.api.nvim_set_keymap
 
+map('n', '<Leader>n', ':tabnext<CR>', opts)
+map('n', '<Leader>b', ':tabprev<CR>', opts)
+
 map('n', '<Leader>u', ':update<CR>', opts)
 map('n', '<Leader><space>', ':nohlsearch<CR>', opts)
 
 map('n', '<Leader>l', ':!lua %<CR>', opt)
 map('n', '<Leader>p', ':!python3 %<CR>', opt)
 
-map('n', '<C-m>', ':NvimTreeOpen<CR>', opts)
+map('n', '<C-m>', ':NvimTreeFindFile<CR>', opts)
 map('n', '<C-n>', ':NvimTreeToggle<CR>', opts)
 
 -- Termdebug

@@ -1,11 +1,6 @@
 #!/bin/sh
 
-if [ -z "$1" ]; then
-  echo 'Provide the url from where to download the .tar.gz' 1>&2
-  exit 1
-fi
-
-src_url=$1
+src_url=$(curl -sL https://api.github.com/repos/srid/neuron/releases/latest | jq -r '.assets[].browser_download_url' | grep -i linux | head -n1)
 tmp_file=/tmp/neuron.archive.crdownload
 binary_file=/tmp/neuron #Binary extracted from the archive
 install_file=~/Appimages/neuron
@@ -36,7 +31,7 @@ download() {
 
 install() {
   tar xf $tmp_file -C "$(dirname $binary_file)" && \
-  mv $binary_file $install_file && \
+  command mv $binary_file $install_file && \
   chmod +x $install_file
 
   if [ $? -eq 0 ]; then
@@ -46,6 +41,7 @@ install() {
   fi
 }
 
+echo "Using donwload link: " $src_url
 rm $tmp_file $binary_file
 if download; then
   install
