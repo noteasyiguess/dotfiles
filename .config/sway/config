@@ -42,7 +42,7 @@ input type:touchpad {
 }
 
 input type:keyboard {
-    xkb_options caps:swapescape
+    xkb_options caps:swapescape,ctrl:swap_lalt_lctl
 }
 
 ### Key bindings
@@ -178,6 +178,8 @@ bindsym $mod+y exec killall -SIGUSR1 waybar
 # Bindings
 bindsym $mod+Alt+Up sticky toggle
 bindsym $mod+Alt+l exec pkill -USR1 swayidle
+#bindsym $mod+i exec emacsclient -c -a ''
+bindsym $mod+i exec emacs
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +2%
@@ -205,7 +207,7 @@ exec dex \
     # /usr/share/applications/redshift-gtk.desktop \
 
 exec wlsunset -l 28.7 -L 77.1
-exec /usr/libexec/polkit-gnome-authentication-agent-1
+#exec /usr/libexec/polkit-gnome-authentication-agent-1
 exec mako
 #exec_always foot --server
 
