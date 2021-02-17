@@ -30,9 +30,10 @@ abbr vim $EDITOR
 abbr ofc "$EDITOR ~/.config/fish/config.fish"
 
 function cdl; cd $argv && ls; end
-alias ls 'lsd'
 alias diff 'diff --color=auto'
 alias vpage 'nvim -u ~/.vimrc.pager'
+alias ec="emacsclient -c -a ''"
+alias et="emacsclient -nw -a ''"
 
 function vman
   # Find directories of all english manual pages

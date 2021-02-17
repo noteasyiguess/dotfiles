@@ -16,7 +16,7 @@ set $term alacritty
 
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu bemenu-run --line-height 34 --fn 'Product Sans Bold' --tb '#924D8B' --tf '#FFFFFF' --fb '#3D3D3D' --ff '#FFFFFF' --nb '#3D3D3D' --nf '#FFFFFF' --hb '#666666' --hf '#FFFFFF' -p App --list 7 --bottom -P '' --ignorecase --no-exec | xargs swaymsg exec --
+set $menu bemenu-run --line-height 34 --fn 'Clear Sans Bold' --tb '#924D8B' --tf '#FFFFFF' --fb '#3D3D3D' --ff '#FFFFFF' --nb '#3D3D3D' --nf '#FFFFFF' --hb '#666666' --hf '#FFFFFF' -p App --list 7 --bottom -P '' --ignorecase --no-exec | xargs swaymsg exec --
 
 # Appearance
 font Product Sans 12
@@ -42,8 +42,13 @@ input type:touchpad {
 }
 
 input type:keyboard {
-    xkb_options caps:swapescape,ctrl:swap_lalt_lctl
+    xkb_options ctrl:swapcaps
 }
+# Previous mappings for emacs
+#xkb_options caps:swapescape,ctrl:swap_lalt_lctl
+
+gaps outer 6
+gaps inner 6
 
 ### Key bindings
 # Start a terminal
@@ -202,7 +207,7 @@ bindsym XF86AudioPrev exec playerctl previous
 exec dex \
     /etc/xdg/autostart/gnome-keyring-pkcs11.desktop \
     /etc/xdg/autostart/gnome-keyring-secrets.desktop \
-    /etc/xdg/autostart/gnome-keyring-ssh.desktop \
+    /etc/xdg/autostart/gnome-keyring-ssh.desktop
     # /usr/share/applications/polkit-gnome-authentication-agent-1.desktop \
     # /usr/share/applications/redshift-gtk.desktop \
 
@@ -210,6 +215,7 @@ exec wlsunset -l 28.7 -L 77.1
 #exec /usr/libexec/polkit-gnome-authentication-agent-1
 exec mako
 #exec_always foot --server
+exec emacs --daemon
 
 for_window [app_id="wlfw"] floating enable
 exec_always ~/.config/sway/little_tidbits.sh

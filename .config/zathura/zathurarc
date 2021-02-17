@@ -10,7 +10,7 @@ set pages-per-row 1
 #stop at page boundries
 set scroll-page-aware "true"
 set scroll-full-overlap 0.01
-set scroll-step 10
+set scroll-step 30
 
 #zoom settings
 set zoom-min 10
@@ -18,7 +18,7 @@ set guioptions ""
 
 # zathurarc-dark
 
-set font "Noto Sans 16"
+set font "Noto Sans 15"
 set default-bg "#282828" #00
 set default-fg "#FABD2F" #01 
 
@@ -54,7 +54,34 @@ set recolor-keephue "false"
 
 set window-title-basename true
 set render-loading "false"
-set scroll-step 50
 unmap f
 map f toggle_fullscreen
 map [fullscreen] f toggle_fullscreen
+
+# Emacs like keybindings
+set adjust-open width
+
+map \< goto top
+map \> goto bottom
+map b navigate previous
+map e follow
+map f navigate next
+map p goto top
+
+map <C-+> zoom in
+map <C--> zoom out
+map <C-=> zoom in
+map <C-)> adjust_window best-fit
+map <C-0> adjust_window width
+map <C-a> scroll full-left
+map <C-b> scroll left
+map <C-e> scroll full-right
+map <C-f> scroll right
+map <C-g> abort
+map <C-n> scroll down
+map <C-p> scroll up
+map <C-v> scroll full-down
+
+map <A-\<> goto top
+map <A-\>> goto bottom
+map <A-v> scroll full-up
