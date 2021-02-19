@@ -44,10 +44,9 @@ input type:touchpad {
 input type:keyboard {
     xkb_options ctrl:swapcaps
 }
-# Previous mappings for emacs
 #xkb_options caps:swapescape,ctrl:swap_lalt_lctl
 
-gaps outer 6
+gaps outer 0
 gaps inner 6
 
 ### Key bindings

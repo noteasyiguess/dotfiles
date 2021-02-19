@@ -1,0 +1,57 @@
+#!/bin/sh
+
+src_url=$(curl -sL https://api.github.com/repos/akiyosi/goneovim/releases/latest | jq -r '.assets[].browser_download_url' | grep -i linux | head -n1)
+tmp_file=/tmp/goneovim.archive.crdownload
+extract_dir=/tmp
+install_dir=~/Appimages
+
+try_download() {
+  wget \
+    "$src_url" \
+    -T3 -t20 -cO $tmp_file
+}
+
+download() {
+  cd "$extract_dir"
+  success=false
+  for i in $(seq 3); do
+    if try_download; then
+      success=true
+      break
+    fi
+  done
+
+  if [ $success = true ]; then
+    echo 'Downloaded goneovim latest archive'
+    return 0
+  else
+    echo 'Failed to download goneovim archive'
+    return 1
+  fi
+}
+
+install() {
+  goneovim_dir=$(tar tf "$tmp_file" | head -n1)
+  if [ $? -ne 0 ]; then
+    echo Can\'t find the extracted directory
+    exit 1
+  fi
+  trash "$install_dir/$goneovim_dir"
+
+  tar xf $tmp_file -C "$(dirname $tmp_file)" && \
+  mv "$goneovim_dir" "$install_dir" && \
+  cd "$install_dir" && \
+  ln -sf "$goneovim_dir/goneovim" .
+
+  if [ $? -eq 0 ]; then
+    echo 'Installed'
+  else
+    echo 'Installation failed'
+  fi
+}
+
+echo "Using donwload link: " $src_url
+trash $tmp_file
+if download; then
+  install
+fi

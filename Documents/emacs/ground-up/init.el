@@ -147,7 +147,8 @@
 (defun my-frame-init ()
   (set-face-attribute 'default nil :font "Fira Code" :height 155 :weight 'normal)
   (set-face-attribute 'variable-pitch nil :font "Noto Sans" :height 150)
-  (setq doom-modeline-icon t))
+  (setq doom-modeline-icon t)
+  (toggle-scroll-bar -1))
 (if (daemonp)
     (add-hook 'after-make-frame-functions
 	      (lambda (frame)
