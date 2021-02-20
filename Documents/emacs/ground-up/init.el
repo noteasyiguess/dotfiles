@@ -143,6 +143,22 @@
     (setq is-readable-font t))
   )
 
+;; I only use Wayland based wm/de
+(setq wl-copy-process nil)
+(defun wl-copy (text)
+  (setq wl-copy-process (make-process :name "wl-copy"
+                                      :buffer nil
+                                      :command '("wl-copy" "-f" "-n")
+                                      :connection-type 'pipe))
+  (process-send-string wl-copy-process text)
+  (process-send-eof wl-copy-process))
+(defun wl-paste ()
+  (if (and wl-copy-process (process-live-p wl-copy-process)) nil
+    (shell-command-to-string "wl-paste -t text -n 2>/dev/null")))
+(setq interprogram-cut-function 'wl-copy)
+(setq interprogram-paste-function 'wl-paste)
+(setq confirm-kill-processes nil)
+
 ;; When running in daemon mode, the font is not set since there is no frame
 (defun my-frame-init ()
   (set-face-attribute 'default nil :font "Fira Code" :height 155 :weight 'normal)
