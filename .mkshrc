@@ -717,24 +717,39 @@ function myquote {
 }
 
 function _fzf_cd {
-    local d=$(fd -I --type d | fzf)
+    local args="-I --type d "
+    local paths="$PWD $HOME/.config"
+    [[ -n "$_fzf_cd_hidden" ]] && args+="-H "
+    local d=$(fd $args '.' $paths | fzf)
     [[ -n "$d" ]] && cd "$d"
 }
 
 function _fzf_history {
-    local h=$(history 1 | rg '^\d' | rg -v 'history' | sort -nr -k1 | fzf)
+    local h=$(history 1 | rg '^\d' | rg -v '(history|_fzf_\w+)' | sort -nr -k1 | fzf)
     local cmd=$(echo $h | sed 's/^\s*[0-9]*\s*//')
     [[ -n "$cmd" ]] && eval $cmd
 }
 
+function _fzf_edit {
+    local f=$(fd -I --type f | fzf)
+    [[ -n "$f" ]] && $EDITOR "$f"
+}
+
+function alacritty_colorscheme_toggle {
+    alacritty-colorscheme -C ~/.config/alacritty/colors toggle &&
+	alacritty-colorscheme -C ~/.config/alacritty/colors status
+}
+
 HISTFILE=~/.cache/mksh_history
 
+[[ -f ~/.config/ls_colors ]] && export LS_COLORS=$(cat ~/.config/ls_colors)
 export FZF_DEFAULT_OPTS="--reverse"
 export BEMENU_OPTS="--line-height 34 --fn 'Clear Sans Bold' --tb '#924D8B' --tf '#FFFFFF' --fb '#3D3D3D' --ff '#FFFFFF' --nb '#3D3D3D' --nf '#FFFFFF' --hb '#666666' --hf '#FFFFFF' --list 7 --bottom -P '' --ignorecase"
 
 set -o emacs
 
 prepend_to_path "$HOME/.cargo/bin"
+prepend_to_path "$HOME/.local/bin"
 prepend_to_path "$HOME/.scripts"
 
 _myprompt_csi="$(printf '\e[')"
@@ -745,16 +760,20 @@ function _myprompt_func() {
     (( $retcode != 0 )) &&
 	reply+="${_myprompt_csi}91m${_myprompt_csi}1m${_myprompt_csi}3m$retcode "
     
-    reply+="${_myprompt_csi}0m${_myprompt_csi}93m${_myprompt_csi}1m$USER "
-    reply+="${_myprompt_csi}0m${_myprompt_csi}94mat "
+    # reply+="${_myprompt_csi}0m${_myprompt_csi}96m${_myprompt_csi}1m$USER "
+    # reply+="${_myprompt_csi}0m${_myprompt_csi}94mat "
 
-    reply+="${_myprompt_csi}96m${_myprompt_csi}1m"
-    [[ "$PWD" == "$HOME" ]] && reply+="舎 " || reply+="${PWD##*/} "
+    reply+="${_myprompt_csi}93m${_myprompt_csi}1m"
+    [[ "$PWD" == "$HOME" ]] && reply+=" " || {
+	    [[ "$PWD" == '/' ]] &&
+		reply+="/ " ||
+		    reply+="${PWD##*/} "
+	}
     
-    reply+="${_myprompt_csi}94m${_myprompt_csi}1m"
+    reply+="${_myprompt_csi}0m${_myprompt_csi}94m" #"${_myprompt_csi}1m"
     echo -n "$reply"
 }
-PS1="#"; (( USER_ID )) && PS1="$(printf '\u222e') ";
+PS1="#"; (( USER_ID )) && PS1=""
 PS1+="${_myprompt_csi}0m";
 
 PS1='$(_myprompt_func)'"$PS1 "
@@ -762,7 +781,8 @@ PS2="${_myprompt_csi}35m$(printf '\u219d')  ${_myprompt_csi}0m"
 
 bind '^L=clear-screen'
 bind -m '^R=_fzf_history^J'
-bind -m '^O=_fzf_cd^J'
+bind -m '^[c=_fzf_cd^J'
+bind -m '^[e=_fzf_edit^J'
 
 alias grep='grep --color=auto'
 alias ls='ls --color=auto'
