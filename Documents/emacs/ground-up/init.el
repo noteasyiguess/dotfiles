@@ -161,7 +161,7 @@
 
 ;; When running in daemon mode, the font is not set since there is no frame
 (defun my-frame-init ()
-  (set-face-attribute 'default nil :font "Fira Code" :height 155 :weight 'normal)
+  (set-face-attribute 'default nil :font "Input Mono Narrow" :height 165 :weight 'normal)
   (set-face-attribute 'variable-pitch nil :font "Noto Sans" :height 150)
   (setq doom-modeline-icon t)
   (toggle-scroll-bar -1))
@@ -197,7 +197,7 @@
 (setq inhibit-startup-screen t)
 (setq inhibit-startup-message t)
 (setq initial-buffer-choice t)
-(setq initial-scratch-message ";; Scratch buffer\n\n")
+(setq initial-scratch-message nil)
 
 ;; Org mode
 (setq org-image-actual-width nil)
@@ -260,6 +260,11 @@
 (blink-cursor-mode -1)
 ;; (menu-bar-mode -1)
 (tool-bar-mode -1)
+(global-flycheck-mode -1)
+
+;; Scrolling doesn't feel like it's having manic disorders
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1) ((meta)) ((control) . text-scale)))
+(setq mouse-wheel-progressive-speed nil)
 
 ;; All backup files are stored in one direcctory
 ;;(setq backup-directory-alist '(("." . "~/.cache/.saves"))

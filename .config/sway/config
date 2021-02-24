@@ -25,7 +25,7 @@ client.focused_inactive '#5E2750' '#5E2750' '#ffffff'
 client.unfocused '#3D3D3D' '#3D3D3D' '#ffffff'
 
 ### Output configuration
-output * bg ~/.cache/bg fill
+#output * bg ~/.cache/bg fill
 
 ### Idle configuration
 exec swayidle -w \
@@ -70,7 +70,8 @@ floating_modifier $mod normal
 bindsym $mod+Shift+r reload
 
 # Exit sway (logs you out of your Wayland session)
-bindsym $mod+Shift+e exec swaynag -t warning -m 'System Maintenance' -z 'Lock' 'pkill -USR1 swayidle' -z 'Logout' 'swaymsg exit' -z 'Sleep' 'systemctl suspend' -z 'Poweroff' 'poweroff' -z 'Reboot' 'reboot'
+#bindsym $mod+Shift+e exec swaynag -t warning -m 'System Maintenance' -z 'Lock' 'pkill -USR1 swayidle' -z 'Logout' 'swaymsg exit' -z 'Sleep' 'systemctl suspend' -z 'Poweroff' 'poweroff' -z 'Reboot' 'reboot'
+bindsym $mod+Shift+e exec wlogout
 
 ### Moving around:
 # Move your focus around
@@ -211,6 +212,7 @@ exec dex \
     # /usr/share/applications/redshift-gtk.desktop \
 
 exec wlsunset -l 28.7 -L 77.1
+exec oguri
 #exec /usr/libexec/polkit-gnome-authentication-agent-1
 exec mako
 #exec_always foot --server
