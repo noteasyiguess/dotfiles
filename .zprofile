@@ -1,1 +1,0 @@
-/home/mns/.zprezto/runcoms/zprofile
