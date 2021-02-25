@@ -78,52 +78,52 @@ function _fzf_edit {
 }
 
 function alacritty-colorscheme-toggle {
-  alacritty-colorscheme -C ~/.config/alacritty/colors toggle && 
-    alacritty-colorscheme -C ~/.config/alacritty/colors status
+    alacritty-colorscheme -C ~/.config/alacritty/colors toggle && 
+        alacritty-colorscheme -C ~/.config/alacritty/colors status
 }
 
 function quiet {
-  "$*" &>/dev/null &
+    "$*" &>/dev/null &
 }
 
 function extract {
-  if [[ -f "$1" ]]; then
-    case "$1" in
-      *.tar.bz2)    tar xjf "$1"    ;;
-      *.tar.gz)     tar xzf "$1"    ;;
-      *.tbz2)       tar xjf "$1"    ;;
-      *.tgz)        tar xzf "$1"    ;;
-      *.tar)        tar xf "$1"     ;;
-      *.bz2)        bunzip2 "$1"    ;;
-      *.rar)        unrar e "$1"    ;;
-      *.gz)         gunzip "$1"     ;;
-      *.zip)        unzip "$1"      ;;
-      *.Z)          uncompress "$1" ;;
-      *.7z)         7z x "$1"       ;;
-      *) echo "'$1' is not supported by extract()" ;;
-    esac
-  else
-    echo "'$1' is not a file"
-  fi
+    if [[ -f "$1" ]]; then
+        case "$1" in
+            *.tar.bz2)    tar xjf "$1"    ;;
+            *.tar.gz)     tar xzf "$1"    ;;
+            *.tbz2)       tar xjf "$1"    ;;
+            *.tgz)        tar xzf "$1"    ;;
+            *.tar)        tar xf "$1"     ;;
+            *.bz2)        bunzip2 "$1"    ;;
+            *.rar)        unrar e "$1"    ;;
+            *.gz)         gunzip "$1"     ;;
+            *.zip)        unzip "$1"      ;;
+            *.Z)          uncompress "$1" ;;
+            *.7z)         7z x "$1"       ;;
+            *) echo "'$1' is not supported by extract()" ;;
+        esac
+    else
+        echo "'$1' is not a file"
+    fi
 }
 
 function command_exists {
-  type "$1" &>/dev/null
+    type "$1" &>/dev/null
 }
 
 function take {
-  mkdir -p "$1"
-  cd "$1" || exit
+    mkdir -p "$1"
+    cd "$1" || exit
 }
 
-HISTFILE=~/.cache/mksh_history
+HISTCONTROL=ignoreboth
 
 #[[ -f ~/.config/ls_colors ]] && export LS_COLORS=$(cat ~/.config/ls_colors)
 export CARGO_TARGET_DIR=~/.cache/rust_target
-#export FZF_DEFAULT_OPTS="--reverse"
+export FZF_DEFAULT_OPTS="--reverse"
 export BEMENU_OPTS="--line-height 34 --fn 'Clear Sans Bold' --tb '#924D8B' --tf '#FFFFFF' --fb '#3D3D3D' --ff '#FFFFFF' --nb '#3D3D3D' --nf '#FFFFFF' --hb '#666666' --hf '#FFFFFF' --list 7 --bottom -P '' --ignorecase"
 
-set -o emacs
+set -o vi
 set -o noclobber #use >| to force redirection to an existing file
 
 prepend_to_path "$HOME/.cargo/bin"
@@ -134,78 +134,44 @@ _myprompt_csi="$(printf '\e[')"
 function _myprompt_func() {
     local retcode=$?
     local prompt=""
-    
+
+    # Useful constants
     declare -n csi=_myprompt_csi
     local italic=${csi}3m
     local bold=${csi}1m
     local reset=${csi}0m
-    
-    (( $retcode != 0 )) &&
-	prompt+="$bold$italic${csi}91m$retcode "
-    
-    # prompt+="${csi}0m${csi}96m${csi}1m$USER "
-    # prompt+="${csi}0m${csi}94mat "
 
-    prompt+="$reset$bold${csi}93m"
-    [[ "$PWD" == "$HOME" ]] && prompt+=" " || {
-	    [[ "$PWD" == '/' ]] &&
-		prompt+="/ " ||
-		    prompt+="${PWD##*/} "
-	}
-    
-    prompt+="$reset${csi}94m"
+    # Display return code when not 0
+    (( $retcode != 0 )) &&
+	prompt+="$bold$italic${csi}91m$retcode$reset "
+
+    # Current directory with some blings
+    prompt+="$bold${csi}93m"
+    if [[ $PWD == $HOME ]]; then
+        prompt+=""
+    else
+        if [[ $PWD == '/' ]]; then
+            prompt+="/"
+        else
+            prompt+="${PWD##*/}"
+        fi
+    fi
+    prompt+="$reset "
+
+    # For coloring the end of prompt icon
+    prompt+="${csi}94m"
     echo -n "$prompt"
 }
 (( UID )) && PS1="" || PS1="#"
 PS1='$(_myprompt_func)'"${PS1}${_myprompt_csi}0m "
 PS2="${_myprompt_csi}95m$(printf '\u219d')${_myprompt_csi}0m  "
 
-# bind -m '^R=_fzf_history^J'
-# bind '^L=clear-screen'
 bind -x '"\ec":"_fzf_cd"'
 bind -x '"\eC":"_fzf_cd dot"'
 bind -x '"\ee":"_fzf_edit"'
 bind -x '"\eE":"_fzf_edit dot"'
 
-alias g='git'
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
-alias lgrep='grep -P'
-alias ls='exa'
-alias lt='ls -schanged -l'
-alias diff='diff --color=auto'
-alias cp='cp -iv'
-alias mv='mv -iv'
-alias rm='rm -v'
-alias mkdir='mkdir -pv'
-alias less='less -FSRXc'
-alias c='clear'
-alias pls='sudo'
-alias dfi='sudo dnf install'
-alias dfs='sudo dnf search'
-alias dfr='sudo dnf remove'
-alias dfu='sudo dnf --setopt=install_weak_deps=False upgrade'
-
-alias hd='hexdump -C'
-alias dud='du -d1 -h'
-alias duf='du -sh *'
-alias nano='nano -W'
-alias wget='wget -c'
-alias bc='bc --mathlib --quiet'
-alias fd='fd -I'
-alias vim='nvim'
-
-alias num_files='ls -1 | wc -l'
-alias qfind='find . -name '
-alias open_ports='sudo lsof -i | grep LISTEN'
-
-alias cal3='cal -3'
-alias today='date "+%A, %B %-d, %Y"'
-alias weeknum='date +%V'
-
-alias myip='dig @resolver4.opendns.com myip.opendns.com +short' 
-alias myip4='dig @resolver4.opendns.com myip.opendns.com +short -4'
-alias myip6='dig @resolver1.ipv6-sandbox.opendns.com AAAA myip.opendns.com +short -6'
+# Load the aliases
+source ~/.config/shell/aliases 
 
 myquote

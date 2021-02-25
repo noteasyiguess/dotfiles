@@ -1,0 +1,40 @@
+alias g='git'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias lgrep='grep -P'
+alias ls='exa'
+alias lt='ls -schanged -l'
+alias diff='diff --color=auto'
+alias cp='cp -iv'
+alias mv='mv -iv'
+alias rm='rm -v'
+alias mkdir='mkdir -pv'
+alias less='less -FSRXc'
+alias c='clear'
+alias pls='sudo'
+alias dfi='sudo dnf install'
+alias dfs='sudo dnf search'
+alias dfr='sudo dnf remove'
+alias dfu='sudo dnf --setopt=install_weak_deps=False upgrade'
+
+alias hd='hexdump -C'
+alias dud='du -d1 -h'
+alias duf='du -sh *'
+alias nano='nano -W'
+alias wget='wget -c'
+alias bc='bc --mathlib --quiet'
+alias fd='fd -I'
+alias vim='nvim'
+
+# emacs shortcuts, daemon mode
+alias ef="emacsclient -nc -a ''"
+alias et="emacsclient -t -a ''"
+
+alias cal3='cal -3'
+alias today='date "+%A, %B %-d, %Y"'
+alias weeknum='date +%V'
+
+alias myip='dig @resolver4.opendns.com myip.opendns.com +short' 
+alias myip4='dig @resolver4.opendns.com myip.opendns.com +short -4'
+alias myip6='dig @resolver1.ipv6-sandbox.opendns.com AAAA myip.opendns.com +short -6'

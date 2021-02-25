@@ -80,7 +80,7 @@
 (use-package company
   :config
   (setq company-minimum-prefix-length 2)
-	company-idle-delay 0.300)
+  company-idle-delay 0.300)
 (add-hook 'after-init-hook 'global-company-mode)
 
 (use-package flycheck
@@ -265,13 +265,25 @@
 
 ;; Disable some annoyances
 (blink-cursor-mode -1)
-;; (menu-bar-mode -1)
 (tool-bar-mode -1)
 (global-flycheck-mode -1)
 
-;; Scrolling doesn't feel like it's having manic disorders
+;; The menubar is more or less useless in terminal mode
+(defun contextual-menubar (&optional frame)
+  "Display the menubar in FRAME (default: selected frame) if on a
+    graphical display, but hide it if in terminal."
+  (interactive)
+  (set-frame-parameter frame 'menu-bar-lines 
+                       (if (display-graphic-p frame)
+                           1 0)))
+(add-hook 'after-make-frame-functions 'contextual-menubar)
+
+;; So that scrolling doesn't feel like emacs is having manic disorders
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1) ((meta)) ((control) . text-scale)))
 (setq mouse-wheel-progressive-speed nil)
+
+;; Mouse mode in the terminal
+(xterm-mouse-mode 1)
 
 ;; All backup files are stored in one direcctory
 ;;(setq backup-directory-alist '(("." . "~/.cache/.saves"))
