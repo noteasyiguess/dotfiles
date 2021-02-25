@@ -49,6 +49,11 @@
 ;;   :config
 ;;   (lsp-ui-doc-enable nil))
 
+(use-package rust-mode
+  :config
+  (add-hook 'rust-mode-hook
+	    (lambda () (setq indent-tabs-mode nil))))
+
 (use-package counsel
   :bind
   ("M-x" . counsel-M-x)
@@ -176,6 +181,8 @@
 (defun my-setup-indent (n)
   ;; java/c/c++
   (setq-local c-basic-offset n)
+  ;; rust
+  (setq-local rust-indent-offset n)
   ;; web development
   (setq-local coffee-tab-width n) ; coffeescript
   (setq-local javascript-indent-level n) ; javascript-mode
@@ -189,7 +196,7 @@
 (defun my-personal-code-style ()
   (interactive)
   ;; use space instead of tab
-  (setq indent-tabs-mode nil)
+  (setq-default indent-tabs-mode nil)
   ;; indent 2 spaces width
   (my-setup-indent 2))
 (my-personal-code-style)

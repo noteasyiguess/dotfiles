@@ -780,7 +780,7 @@ HISTFILE=~/.cache/mksh_history
 
 #[[ -f ~/.config/ls_colors ]] && export LS_COLORS=$(cat ~/.config/ls_colors)
 export CARGO_TARGET_DIR=~/.cache/rust_target
-export FZF_DEFAULT_OPTS="--reverse"
+#export FZF_DEFAULT_OPTS="--reverse"
 export BEMENU_OPTS="--line-height 34 --fn 'Clear Sans Bold' --tb '#924D8B' --tf '#FFFFFF' --fb '#3D3D3D' --ff '#FFFFFF' --nb '#3D3D3D' --nf '#FFFFFF' --hb '#666666' --hf '#FFFFFF' --list 7 --bottom -P '' --ignorecase"
 
 set -o emacs
@@ -827,11 +827,13 @@ bind -m '^[C=_fzf_cd dot^J'
 bind -m '^[e=_fzf_edit^J'
 bind -m '^[E=_fzf_edit dot^J'
 
+alias g='git'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias lgrep='grep -P'
 alias ls='exa'
+alias lt='ls -schanged -l'
 alias diff='diff --color=auto'
 alias cp='cp -iv'
 alias mv='mv -iv'

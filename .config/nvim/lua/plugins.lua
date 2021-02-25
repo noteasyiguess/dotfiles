@@ -15,7 +15,7 @@ return require('packer').startup(
 
     use 'kyazdani42/nvim-tree.lua'
     use {'nvim-telescope/telescope.nvim',
-          requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
+      requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
     }
 
     use 'preservim/nerdcommenter'

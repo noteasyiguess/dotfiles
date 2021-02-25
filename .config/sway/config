@@ -44,6 +44,7 @@ input type:touchpad {
 input type:keyboard {
     xkb_options ctrl:swapcaps
 }
+    #xkb_options caps:swapescape
 #xkb_options caps:swapescape,ctrl:swap_lalt_lctl
 
 gaps outer 0
@@ -212,7 +213,7 @@ exec dex \
     # /usr/share/applications/redshift-gtk.desktop \
 
 exec wlsunset -l 28.7 -L 77.1
-exec oguri
+#exec oguri
 #exec /usr/libexec/polkit-gnome-authentication-agent-1
 exec mako
 #exec_always foot --server
