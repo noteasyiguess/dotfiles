@@ -42,9 +42,10 @@ input type:touchpad {
 }
 
 input type:keyboard {
-    xkb_options ctrl:swapcaps
+    xkb_options caps:swapescape
 }
     #xkb_options caps:swapescape
+    #xkb_options ctrl:swapcaps
 #xkb_options caps:swapescape,ctrl:swap_lalt_lctl
 
 gaps outer 0
@@ -212,12 +213,12 @@ exec dex \
     # /usr/share/applications/polkit-gnome-authentication-agent-1.desktop \
     # /usr/share/applications/redshift-gtk.desktop \
 
-exec wlsunset -l 28.7 -L 77.1
+exec wlsunset -l 28.7 -L 77.1 -t 3250 -T 5500
+exec mako
+exec emacs --daemon
+#exec_always foot --server
 #exec oguri
 #exec /usr/libexec/polkit-gnome-authentication-agent-1
-exec mako
-#exec_always foot --server
-exec emacs --daemon
 
 for_window [app_id="wlfw"] floating enable
 exec_always ~/.config/sway/little_tidbits.sh

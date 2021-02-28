@@ -1,0 +1,17 @@
+# Person
+https://drewdevault.com/blog/index.xml person
+https://stallman.org/rss/rss.xml person political
+https://lukesmith.xyz/rss.xml person
+
+# Magazine/Booklet
+https://opensource.com/feed mag
+https://fedoramagazine.org/feed/ mag
+https://www.phoronix.com/rss.php mag dev
+
+# Software development
+https://planet.freedesktop.org/rss20.xml dev
+
+# Kernel
+https://lwn.net/headlines/rss kernel dev
+https://lwn.net/headlines/Features kernel dev
+https://planet.kernel.org/rss20.xml dev kernel

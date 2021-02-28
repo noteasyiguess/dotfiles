@@ -14,8 +14,10 @@ compinit
 
 # Personal
 set -o noclobber
+setopt shwordsplit # Expand variables around spaces? Something like that
 
-export TERM=xterm-256color
+EDITOR='emacsclient -t -a ""'
+export TERM=xterm-direct
 export CARGO_TARGET_DIR=~/.cache/rust_target
 export FZF_DEFAULT_OPTS='--reverse'
 export BEMENU_OPTS="--line-height 34 --fn 'Clear Sans Bold' --tb '#924D8B' --tf '#FFFFFF' --fb '#3D3D3D' --ff '#FFFFFF' --nb '#3D3D3D' --nf '#FFFFFF' --hb '#666666' --hf '#FFFFFF' --list 7 --bottom -P '' --ignorecase"

@@ -18,6 +18,9 @@ alias dfs='sudo dnf search'
 alias dfr='sudo dnf remove'
 alias dfu='sudo dnf --setopt=install_weak_deps=False upgrade'
 
+alias tldr='tldr -p'
+alias ytdl='youtube-dl'
+
 alias hd='hexdump -C'
 alias dud='du -d1 -h'
 alias duf='du -sh *'
@@ -25,11 +28,15 @@ alias nano='nano -W'
 alias wget='wget -c'
 alias bc='bc --mathlib --quiet'
 alias fd='fd -I'
+
+# vim shortcuts, n is annoying to type
 alias vim='nvim'
 
 # emacs shortcuts, daemon mode
 alias ef="emacsclient -nc -a ''"
 alias et="emacsclient -t -a ''"
+alias -g eff='emacs'
+alias -g ett='emacs -nw'
 
 alias cal3='cal -3'
 alias today='date "+%A, %B %-d, %Y"'
