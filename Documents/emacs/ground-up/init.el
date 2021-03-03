@@ -19,7 +19,6 @@
 
 ;; Generic keybindings:
 ;; (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-(global-set-key (kbd "C-x C-r") 'counsel-recentf)
 
 ;; Handy Functions
 (defun kill-all-buffers ()
@@ -44,48 +43,10 @@
 (use-package magit)
 (use-package all-the-icons
   :config (setq all-the-icons-scale-factor 1.0))
-(use-package vterm)
+;; (use-package vterm)
 
 (defun set-default-variable-pitch-font ()
   (set-face-attribute 'variable-pitch nil :font "Clear Sans" :height 170))
-
-;; RSS Feeds
-;; (use-package elfeed
-;;   :bind
-;;   ("C-x w" . elfeed)
-;;   :config
-;;   (setq
-;;    elfeed-feeds '(
-;;                   ;; Person
-;;                   ("https://drewdevault.com/blog/index.xml" person)
-;;                   ("https://stallman.org/rss/rss.xml" person political)
-;;                   ("https://lukesmith.xyz/rss.xml" person)
-;;                   ;; Magazine/Booklet
-;;                   ("https://opensource.com/feed" mag)
-;;                   ("https://fedoramagazine.org/feed" mag)
-;;                   ;; Software development
-;;                   ("https://planet.freedesktop.org/rss20.xml" dev)
-;;                   ;; Kernel
-;;                   ("https://lwn.net/headlines/rss" kernel dev)
-;;                   ("https://lwn.net/headlines/Features" kernel dev))
-;;    elfeed-show-mode-hook (lambda ()
-;;                            (set-default-variable-pitch-font))))
-
-(setq newsticker-url-list
-      '(
-        ;; Person
-        ("" "https://drewdevault.com/blog/index.xml")
-        ("" "https://stallman.org/rss/rss.xml")
-        ("" "https://lukesmith.xyz/rss.xml")
-        ;; Magazine/Booklet
-        ("" "https://opensource.com/feed")
-        ("" "https://fedoramagazine.org/feed")
-        ;; Software development
-        ("" "https://planet.freedesktop.org/rss20.xml")
-        ;; Kernel
-        ("" "https://lwn.net/headlines/rss")
-        ("" "https://lwn.net/headlines/Features")))
-
 
 (use-package w3m
   :config
@@ -135,6 +96,7 @@
 
 (use-package counsel
   :bind
+  ("C-x C-r" . counsel-recentf)
   ("M-x" . counsel-M-x)
   ("C-x C-f" . counsel-find-file)
   ("M-y" . counsel-yank-pop)
@@ -232,7 +194,7 @@
 (use-package dashboard
   :config
   (dashboard-setup-startup-hook)
-  (setq dashboard-startup-banner 'logo
+  (setq dashboard-startup-banner 'official
         dashboard-center-content nil
         dashboard-items '((recents . 5)
                           (projects . 5)
@@ -278,7 +240,7 @@
 
 ;; When running in daemon mode, the font is not set since there is no frame
 (defun my-frame-init ()
-  (set-face-attribute 'default nil :font "agave Nerd Font Mono" :height 180 :weight 'normal)
+  (set-face-attribute 'default nil :font "Input Mono Narrow" :height 165 :weight 'normal)
   (set-default-variable-pitch-font)
   ;; To display unicodes in the range
   (set-fontset-font t '(#x11000 . #x1107f) (font-spec :family "Noto Sans Brahmi"))
@@ -361,8 +323,8 @@
 (setq display-line-numbers-type 'relative)
 
 ;; Smooth scroll
-(setq scroll-step 1
-      scroll-conservatively 10000)
+;; (setq scroll-step 1
+;;       scroll-conservatively 10000)
 
 ;; Line folding
 (setq-default truncate-lines nil)

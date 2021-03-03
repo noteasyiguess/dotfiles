@@ -3,7 +3,7 @@ import subprocess
 import os
 import sys
 
-DEF_CURSOR_SIZE = 24
+DEF_CURSOR_SIZE = 32
 
 is_set = True
 for arg in sys.argv[1:]:
