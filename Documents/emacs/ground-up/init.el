@@ -166,7 +166,7 @@
 (use-package kaolin-themes)
 (use-package gruvbox-theme)
 
-(load-theme 'doom-miramare t)
+(load-theme 'gruvbox-dark-medium t)
 
 (defun hour-minute-between (hour-start minute-start hour-end minute-end hour minute)
   "Checks whether (HOUR, MINUTE) are between (inclusive) the ranges 
@@ -179,7 +179,7 @@
 
 (defun greet-other-lang ()
   "Greet based on the time of the day"
-  (let* ((hour (string-to-number (format-time-string "%H")))
+  (let ((hour (string-to-number (format-time-string "%H")))
          (minute (string-to-number (format-time-string "%M"))))
     (if (hour-minute-between 6 0 11 59 hour minute)
         (concat "𑀰𑀼𑀪 𑀧𑁆𑀭𑀪𑀸𑀢 " user-full-name)

@@ -226,7 +226,7 @@ bindsym $mod+y exec killall -SIGUSR1 waybar
 # Bindings
 bindsym $mod+Alt+Up sticky toggle
 bindsym $mod+Alt+l exec pkill -USR1 swayidle
-bindsym $mod+i exec emacsclient -c -a ''
+bindsym $mod+m exec emacsclient -c -a ''
 #bindsym $mod+i exec emacs
 
 # Pulse Audio controls
