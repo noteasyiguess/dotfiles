@@ -1,0 +1,19 @@
+#!/bin/sh
+
+export BEMENU_OPTS=$(cat ~/.config/shell/bemenu_opts)
+qual=$(echo -e '144p\n240p\n360p\n480p\n720p\n1080p\nbestaudio\nworstaudio' | bemenu -l 8 -p "Quality")
+
+[ -z "$qual" ] && exit 1
+
+export YTFZF_EXTMENU=" bemenu -i -l 15 -p ytfzf"
+export YTFZF_EXTMENU_LEN=150
+
+export YTFZF_PLAYER="mpv"
+export YTFZF_PLAYER_FORMAT="mpv --force-window --ytdl-format="
+
+if grep "audio" <<<"$qual"; then
+    YTFZF_PREF="$qual" ytfzf -D
+else
+    qual=$(grep -oP '^\d+' <<<"$qual")
+    YTFZF_PREF="bestvideo[height<=$qual]+bestaudio/best" ytfzf -D
+fi

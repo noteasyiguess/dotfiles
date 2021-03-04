@@ -4,14 +4,16 @@
 ### Variables
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
+set $alt Mod1
 
 set $left h
 set $down j
 set $up k
 set $right l
 
-set $term alacritty
-#set $term kitty
+#set $term cool-retro-term
+#set $term alacritty
+set $term kitty
 #set $term footclient
 
 # Gruvbox color scheme
@@ -56,7 +58,7 @@ set $orange0 '#fe8019';
 
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu bemenu-run --line-height 34 --fn 'Input Mono Bold' --tb '#fabd2f' --tf '#282828' --fb '#504945' --ff '#ebdbb2' --nb '#3c3836' --nf '#ebdbb2' --hb '#fabd2f' --hf '#282828' -p 'What to 𑀲?' --list 6 --bottom -P '𑀣' --ignorecase --no-exec | xargs swaymsg exec --
+set $menu bemenu-run --line-height 34 --fn 'Input Mono Bold' --tb '#fabd2f' --tf '#282828' --fb '#504945' --ff '#ebdbb2' --nb '#3c3836' --nf '#ebdbb2' --hb '#fabd2f' --hf '#282828' -p 'What to 𑀲?' --list 6 -P '𑀣' --ignorecase --no-exec | xargs swaymsg exec --
 
 # Appearance
 font Input Sans Narrow 12
@@ -89,8 +91,8 @@ input type:keyboard {
     #xkb_options ctrl:swapcaps
 #xkb_options caps:swapescape,ctrl:swap_lalt_lctl
 
-gaps outer 0
-gaps inner 6
+# gaps outer 0
+# gaps inner 6
 
 ### Key bindings
 # Start a terminal
@@ -224,10 +226,8 @@ bar {
 bindsym $mod+y exec killall -SIGUSR1 waybar
 
 # Bindings
-bindsym $mod+Alt+Up sticky toggle
-bindsym $mod+Alt+l exec pkill -USR1 swayidle
 bindsym $mod+m exec emacsclient -c -a ''
-#bindsym $mod+i exec emacs
+bindsym $mod+n exec emacs
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +2%
@@ -245,6 +245,11 @@ bindsym XF86AudioPrev exec playerctl previous
 
 #bindsym XF86MonBrightnessUp exec brightnessctl s +1%
 #bindsym XF86MonBrightnessDown exec brightnessctl s 1%-
+
+# All the alt keybindings
+bindsym $mod+Alt+y exec ~/.scripts/ytvideo
+bindsym $mod+Alt+Up sticky toggle
+bindsym $mod+Alt+l exec pkill -USR1 swayidle
 
 # Autostart
 exec dex \

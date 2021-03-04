@@ -53,6 +53,29 @@
   (setq w3m-default-display-inline-images t
         w3m-use-favicon nil))
 
+;; Setup newsticker feed reader
+(setq newsticker-url-list
+      '(;; Person
+        ("Drew Devault" "https://drewdevault.com/blog/index.xml")
+        ("Richard Stallman's Political Notes" "https://stallman.org/rss/rss.xml")
+        ("Boomer In The Woods" "https://lukesmith.xyz/rss.xml")
+
+        ;; Magazine/Booklet
+        ("Opensource.com" "https://opensource.com/feed")
+        ("Fedora Magazine" "https://fedoramagazine.org/feed/")
+        ("Phoronix" "https://www.phoronix.com/rss.php")
+
+        ;; Software development
+        ("Freedesktop Planet" "https://planet.freedesktop.org/rss20.xml")
+
+        ;; Kernel
+        ("LWN Headlines" "https://lwn.net/headlines/rss")
+        ("LWN Featured" "https://lwn.net/headlines/Features")
+        ("Kernel Planet" "https://planet.kernel.org/rss20.xml"))
+
+      newsticker-retrieval-method 'intern
+      )
+
 ;; (use-package bongo
 ;;   :config (setq bongo-enabled-backends '(vlc mpv))
 
@@ -115,7 +138,9 @@
   ("C-x b" . ivy-switch-buffer)
   ("C-c v" . ivy-push-view)
   ("C-c V" . ivy-pop-view)
-  :config (ivy-mode 1))
+  :config
+  (setq ivy-initial-inputs-alist nil)
+  (ivy-mode 1))
 (use-package lsp-ivy)
 
 (use-package company
@@ -157,8 +182,76 @@
 (use-package amx) ;; recently used commands
 
 ;; Modeline
-(use-package doom-modeline
-  :hook (after-init . doom-modeline-mode))
+
+;; (use-package doom-modeline
+;;   :hook (after-init . doom-modeline-mode))
+
+;; (use-package powerline
+;;   :config
+;;   (powerline-center-theme))
+
+;; (setq-default mode-line-format
+;;       '("%e"
+;;         mode-line-front-space
+;;         " "
+;;         mode-line-mule-info
+;;         mode-line-client
+;;         mode-line-modified
+;;         mode-line-remote
+;;         mode-line-frame-identification
+;;         mode-line-buffer-identification
+;;         mode-line-position
+;;         mode-line-modes
+;;         mode-line-misc-info
+;;         mode-line-end-spaces))
+
+(defun simple-mode-line-render (left right)
+  "Return a string of `window-width' length.
+Containing LEFT, and RIGHT aligned respectively."
+  (let ((available-width
+         (- (window-total-width)
+            (+ (length (format-mode-line left))
+               (length (format-mode-line right))))))
+    (append left
+            (list (format (format "%%%ds" available-width) ""))
+            right)))
+
+(setq-default
+ mode-line-format
+ '((:eval
+    (simple-mode-line-render
+     ;; Left.
+     '("%e "
+       mode-line-buffer-identification
+       " "
+       mode-line-mule-info
+       " %l : %c "
+       evil-mode-line-tag
+       "[%*] ")
+     ;; Right.
+     '("%p"
+       mode-line-frame-identification
+       mode-name
+       " "
+       mode-line-misc-info)))))
+
+(use-package diminish
+  :config
+  (diminish 'eldoc-mode)
+  (diminish 'gcmh-mode)
+  (diminish 'ivy-mode)
+  (diminish 'which-key-mode)
+  (diminish 'company-mode)
+  (diminish 'auto-revert-mode)
+  (diminish 'projectile-mode)
+  (diminish 'hide-ifdef-mode)
+  (diminish 'hs-minor-mode)
+  (diminish 'flycheck-mode)
+  (diminish 'tree-sitter-mode)
+  (diminish 'abbrev-mode)
+  (diminish 'lsp-mode)
+  (diminish 'page-break-lines-mode)
+  )
 
 ;; Themes
 (use-package doom-themes
@@ -166,7 +259,7 @@
 (use-package kaolin-themes)
 (use-package gruvbox-theme)
 
-(load-theme 'gruvbox-dark-medium t)
+(load-theme 'doom-monokai-classic t)
 
 (defun hour-minute-between (hour-start minute-start hour-end minute-end hour minute)
   "Checks whether (HOUR, MINUTE) are between (inclusive) the ranges 
@@ -180,21 +273,21 @@
 (defun greet-other-lang ()
   "Greet based on the time of the day"
   (let ((hour (string-to-number (format-time-string "%H")))
-         (minute (string-to-number (format-time-string "%M"))))
+        (minute (string-to-number (format-time-string "%M"))))
     (if (hour-minute-between 6 0 11 59 hour minute)
-        (concat "𑀰𑀼𑀪 𑀧𑁆𑀭𑀪𑀸𑀢 " user-full-name)
+        (concat "𑀰𑀼 𑀪 𑀧𑁆𑀭𑀪𑀸𑀢 " user-full-name)
       (if (and (= hour 12) (= minute 0))
           (concat "𑀅𑀩 𑀤𑁄𑀧𑀳𑀭 𑀳𑁄 𑀕𑀈 𑀳𑁃, " user-full-name)
         (if (hour-minute-between 12 1 17 0 hour minute)
             (concat "𑀦𑀫𑀲𑁆𑀓𑀸𑀭 " user-full-name)
           (if (hour-minute-between 17 1 20 0 hour minute)
               (concat "𑀲𑀼𑀲𑀁𑀥𑁆𑀬𑀸 " user-full-name)
-            (concat "𑀰𑀼𑀪 𑀭𑀸𑀢𑁆𑀭𑀺 " user-full-name)))))))
+            (concat "𑀰𑀼 𑀪 𑀭𑀸𑀢𑁆𑀭𑀺 " user-full-name)))))))
 
 (use-package dashboard
   :config
   (dashboard-setup-startup-hook)
-  (setq dashboard-startup-banner 'official
+  (setq dashboard-startup-banner '1
         dashboard-center-content nil
         dashboard-items '((recents . 5)
                           (projects . 5)
@@ -240,7 +333,7 @@
 
 ;; When running in daemon mode, the font is not set since there is no frame
 (defun my-frame-init ()
-  (set-face-attribute 'default nil :font "Input Mono Narrow" :height 165 :weight 'normal)
+  (set-face-attribute 'default nil :font "JetBrainsMono Nerd Font Mono" :height 160)
   (set-default-variable-pitch-font)
   ;; To display unicodes in the range
   (set-fontset-font t '(#x11000 . #x1107f) (font-spec :family "Noto Sans Brahmi"))
@@ -339,6 +432,8 @@
 (blink-cursor-mode 1)
 (setq-default cursor-type 'box)
 (tool-bar-mode -1)
+(menu-bar-mode -1)
+(fringe-mode 0)
 (global-flycheck-mode -1)
 
 ;; The menubar is more or less useless in terminal mode
@@ -349,10 +444,10 @@
   (set-frame-parameter frame 'menu-bar-lines 
                        (if (display-graphic-p frame)
                            1 0)))
-(add-hook 'after-make-frame-functions 'contextual-menubar)
+;; (add-hook 'after-make-frame-functions 'contextual-menubar)
 
 ;; Sane scrolling so it doesn't feel like emacs is having manic disorders
-(setq mouse-wheel-scroll-amount '(1 ((shift) . 2) ((meta)) ((control) . text-scale)))
+(setq mouse-wheel-scroll-amount '(2 ((shift) . hscroll) ((meta) . nil) ((control) . text-scale)))
 (setq mouse-wheel-progressive-speed nil)
 (setq mouse-wheel-tilt-scroll nil)
 

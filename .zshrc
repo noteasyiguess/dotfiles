@@ -18,9 +18,10 @@ setopt shwordsplit # Expand variables around spaces? Something like that
 
 EDITOR='emacsclient -t -a ""'
 export TERM=xterm-direct
+# export TERM=xterm-256color
 export CARGO_TARGET_DIR=~/.cache/rust_target
 export FZF_DEFAULT_OPTS='--reverse'
-export BEMENU_OPTS="--line-height 34 --fn 'Clear Sans Bold' --tb '#924D8B' --tf '#FFFFFF' --fb '#3D3D3D' --ff '#FFFFFF' --nb '#3D3D3D' --nf '#FFFFFF' --hb '#666666' --hf '#FFFFFF' --list 7 --bottom -P '' --ignorecase"
+export BEMENU_OPTS=$(cat ~/.config/shell/bemenu_opts)
 
 # Define all the functions at one place
 function add_to_path {
@@ -116,52 +117,29 @@ function take {
     cd "$1"
 }
 
+function yfvgen {
+    YTFZF_PREF="bestvideo[height<=?$1]+bestaudio/best" ytfzf
+}
+alias yf144='yfvgen 144'
+alias yf240='yfvgen 240'
+alias yf360='yfvgen 360'
+alias yf480='yfvgen 480'
+alias yf720='yfvgen 720'
+alias yf1080='yfvgen 1080'
+
+function yfagen {
+    YTFZF_PREF="${1}audio" ytfzf
+}
+alias yfab='yfagen best'
+alias yfaw='yfagen worst'
+
 autoload -U colors && colors
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# kitty + complete setup zsh | source /dev/stdin
 
 add_to_path "$HOME/.cargo/bin"
 add_to_path "$HOME/.local/bin"
 add_to_path "$HOME/.scripts"
-
-# Gruvbox color scheme
-# 0th row
-readonly gb_bg='#282828'
-readonly gb_red='#cc241d'
-readonly gb_green='#98971a'
-readonly gb_yellow='#d79921'
-readonly gb_blue='#458588'
-readonly gb_purple='#b16286'
-readonly gb_aqua='#689d6a'
-readonly gb_gray='#a89984'
-
-# 1st row
-readonly gb_gray0='#928374'
-readonly gb_red0='#fb4934'
-readonly gb_green0='#b8bb26'
-readonly gb_yellow0='#fabd2f'
-readonly gb_blue0='#83a598'
-readonly gb_purple0='#d3869b'
-readonly gb_aqua0='#8ec07c'
-readonly gb_fg='#ebdbb2'
-
-# 2nd row
-readonly gb_bg0_h='#1d2021'
-readonly gb_bg0='#282828'
-readonly gb_bg1='#3c3836'
-readonly gb_bg2='#504945'
-readonly gb_bg3='#665c54'
-readonly gb_bg4='#7c6f64'
-readonly gb_gray2='#928374'
-readonly gb_orange='#d65d0e'
-
-# 3rd row
-readonly gb_bg0_s='#32302f'
-readonly gb_fg4='#a89984'
-readonly gb_fg3='#bdae93'
-readonly gb_fg2='#d5c4a1'
-readonly gb_fg1='#ebdbb2'
-readonly gb_fg0='#fbf1c7'
-readonly gb_orange0='#fe8019'
 
 # Prompt customizations
 readonly _myprompt_csi=$(printf '\e[')

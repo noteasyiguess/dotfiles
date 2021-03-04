@@ -1,23 +1,31 @@
+# Git
 alias g='git'
+
+# Grep
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias lgrep='grep -P'
+
+# ls
 alias ls='exa'
 alias lt='ls -schanged -l'
+alias lz='ls -ssize -l'
+
+# Other common utils
 alias diff='diff --color=auto'
 alias cp='cp -iv'
 alias mv='mv -iv'
 alias rm='rm -v'
 alias mkdir='mkdir -pv'
-alias less='less -FSRXc'
-alias c='clear'
-alias pls='sudo'
+alias less='less -FRXc'
+
+# DNF
 alias dfi='sudo dnf install'
-alias dfii='sudo dnf --setopt=install_weak_deps=False install'
 alias dfs='sudo dnf search'
 alias dfr='sudo dnf remove'
 alias dfu='sudo dnf upgrade'
+alias dfii='sudo dnf --setopt=install_weak_deps=False install'
 alias dfuu='sudo dnf --setopt=install_weak_deps=False upgrade'
 
 alias tldr='tldr -p'
@@ -31,14 +39,17 @@ alias wget='wget -c'
 alias bc='bc --mathlib --quiet'
 alias fd='fd -I'
 
-# vim shortcuts, n is annoying to type
+# Vim
 alias vim='nvim'
 
-# emacs shortcuts, daemon mode
+# Emacs
 alias ef="emacsclient -nc -a ''"
 alias et="emacsclient -t -a ''"
-alias -g eff='emacs'
-alias -g ett='emacs -nw'
+alias -g eff="emacsclient -nc -a ''"
+alias -g ett="emacsclient -t -a ''"
+alias -g efff="emacs"
+alias -g ettt="emacs -nw"
+alias -g e="emacsclient -t -a ''"
 
 alias cal3='cal -3'
 alias today='date "+%A, %B %-d, %Y"'

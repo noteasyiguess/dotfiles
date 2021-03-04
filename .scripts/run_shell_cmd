@@ -1,0 +1,5 @@
+#!/bin/sh
+
+export BEMENU_OPTS=$(cat ~/.config/shell/bemenu_opts)
+cmd=$(bemenu-run --no-exec --prompt 'Run shell command')
+sh -c "$cmd"
