@@ -9,8 +9,8 @@
   "Kill all other buffers."
   (interactive)
   (mapc 'kill-buffer 
-        (delq (current-buffer) 
-              (remove-if-not 'buffer-file-name (buffer-list)))))
+        (delq (current-buffer)
+              (cl-remove-if-not 'buffer-file-name (buffer-list)))))
 
 (defun color-hex-to-float (color)
   "Converts a 3 component 8-bit RGB color to 32-bit normalized floats"
@@ -21,7 +21,7 @@
     (message "%f, %f, %f" rr gg bb)))
 
 (defun set-default-variable-pitch-font ()
-  (set-face-attribute 'variable-pitch nil :font "Clear Sans" :height 170))
+  (set-face-attribute 'variable-pitch nil :font "Noto Sans" :height 160 :weight 'normal))
 
 ;; Easily toggle between a readable font and a basic font
 (setq is-readable-font nil)
@@ -40,20 +40,20 @@
 
 ;; Fix copy-paste in Wayland
 ;; I only use Wayland based WMs/DEs so not a problem
-(setq wl-copy-process nil)
-(defun wl-copy (text)
-  (setq wl-copy-process (make-process :name "wl-copy"
-                                      :buffer nil
-                                      :command '("wl-copy" "-f" "-n")
-                                      :connection-type 'pipe))
-  (process-send-string wl-copy-process text)
-  (process-send-eof wl-copy-process))
-(defun wl-paste ()
-  (if (and wl-copy-process (process-live-p wl-copy-process)) nil
-    (shell-command-to-string "wl-paste -t text -n 2>/dev/null")))
-(setq interprogram-cut-function 'wl-copy)
-(setq interprogram-paste-function 'wl-paste)
-(setq confirm-kill-processes nil)
+;; (setq wl-copy-process nil)
+;; (defun wl-copy (text)
+;;   (setq wl-copy-process (make-process :name "wl-copy"
+;;                                       :buffer nil
+;;                                       :command '("wl-copy" "-f" "-n")
+;;                                       :connection-type 'pipe))
+;;   (process-send-string wl-copy-process text)
+;;   (process-send-eof wl-copy-process))
+;; (defun wl-paste ()
+;;   (if (and wl-copy-process (process-live-p wl-copy-process)) nil
+;;     (shell-command-to-string "wl-paste -t text -n 2>/dev/null")))
+;; (setq interprogram-cut-function 'wl-copy)
+;; (setq interprogram-paste-function 'wl-paste)
+;; (setq confirm-kill-processes nil)
 
 ;; When running in daemon mode, the font is not set since there is no frame
 (defun my-frame-init ()
@@ -111,26 +111,8 @@
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
 
-(setq newsticker-url-list
-      '(;; Person
-        ("Drew Devault" "https://drewdevault.com/blog/index.xml")
-        ("Richard Stallman's Political Notes" "https://stallman.org/rss/rss.xml")
-        ("Boomer In The Woods" "https://lukesmith.xyz/rss.xml")
-
-        ;; Magazine/Booklet
-        ("Opensource.com" "https://opensource.com/feed")
-        ("Fedora Magazine" "https://fedoramagazine.org/feed/")
-        ("Phoronix" "https://www.phoronix.com/rss.php")
-
-        ;; Software development
-        ("Freedesktop Planet" "https://planet.freedesktop.org/rss20.xml")
-
-        ;; Kernel
-        ("LWN Headlines" "https://lwn.net/headlines/rss")
-        ("LWN Featured" "https://lwn.net/headlines/Features")
-        ("Kernel Planet" "https://planet.kernel.org/rss20.xml"))
-
-      newsticker-retrieval-method 'intern)
+;; Modes
+(global-tree-sitter-mode 1)
 
 ;; Hooks
 (add-hook 'c++-mode-hook (lambda () (hs-minor-mode) (hide-ifdef-mode)))
@@ -186,7 +168,9 @@
 ;;        mode-line-misc-info)))))
 
 ;; Theme
-(load-theme 'gruvbox-dark-soft t)
+;; (load-theme 'gruvbox t) ;; this function doesn't disable other themes
+(require 'counsel)
+(counsel-load-theme-action "doom-gruvbox")
 
 ;; Ability to set image dimensions from within the org document
 (setq org-image-actual-width nil)
@@ -227,22 +211,23 @@
 
 ;; Options
 ;; Relative line numbers
-(global-display-line-numbers-mode -1)
-(setq display-line-numbers-type 'relative)
+(global-display-line-numbers-mode 1)
+(setq display-line-numbers-type 'relative
+      display-line-numbers-current-absolute nil)
 
 ;; Smooth scroll
 ;; (setq scroll-step 1
 ;;       scroll-conservatively 10000)
 
 (setq-default truncate-lines nil) ;; Line folding
-(tab-bar-mode 1) ;; Tabs are the one of the most useful features
+(tab-bar-mode -1) ;; Tabs are the one of the most useful features
 (show-paren-mode 1) ;; Highlight matched bracket
 (electric-pair-mode 1) ;; Automatically pair parens
 
 ;; Annoyances
-(setq-default cursor-type '(hbar . 5))
+(setq-default cursor-type 'box)
 (setq server-client-instructions nil)
-(blink-cursor-mode 1)
+(blink-cursor-mode -1)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (fringe-mode 0)

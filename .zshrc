@@ -20,7 +20,7 @@ EDITOR='emacsclient -t -a ""'
 export TERM=xterm-direct
 # export TERM=xterm-256color
 export CARGO_TARGET_DIR=~/.cache/rust_target
-export FZF_DEFAULT_OPTS='--reverse'
+export FZF_DEFAULT_OPTS='--reverse --bind=ctrl-k:kill-line,ctrl-u:clear-query,ctrl-v:page-down,alt-v:page-up'
 export BEMENU_OPTS=$(cat ~/.config/shell/bemenu_opts)
 
 # Define all the functions at one place
@@ -115,6 +115,20 @@ function is_command_exists {
 function take {
     mkdir -p "$1"
     cd "$1"
+}
+
+function eman {
+    emacsclient -t -a '' --eval "(progn (man \"$*\") (delete-window))"
+}
+
+function emanfzf {
+    man_line=$(man -k . | fzf)
+    [[ -z $man_line ]] && return 1
+
+    man_and_sec=$(grep -Po '^.*?\)' <<<"$man_line")
+    [[ -z $man_and_sec ]] && return 2
+
+    eman "$man_and_sec"
 }
 
 function yfvgen {

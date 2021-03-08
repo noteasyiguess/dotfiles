@@ -40,7 +40,7 @@ alias bc='bc --mathlib --quiet'
 alias fd='fd -I'
 
 # Vim
-alias vim='nvim'
+# alias vim='nvim'
 
 # Emacs
 alias ef="emacsclient -nc -a ''"

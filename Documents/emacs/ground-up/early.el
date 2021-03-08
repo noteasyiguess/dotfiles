@@ -4,8 +4,6 @@
 (defun hour-minute-between (hour-start minute-start hour-end minute-end hour minute)
   "Checks whether (HOUR, MINUTE) are between (inclusive) the ranges 
 (HOUR-START, MINUTE-START) and (HOUR-END, MINUTE-END)"
-  (message "(%d, %d), (%d, %d)" hour-start minute-start hour-end minute-end)
-  (message "%d, %d" hour minute)
   (and (>= hour hour-start) (<= hour hour-end)
        (or (/= hour hour-start) (>= minute minute-start))
        (or (/= hour hour-end) (<= minute minute-end))))

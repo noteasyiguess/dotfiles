@@ -12,6 +12,12 @@
 ;; (use-package bongo
 ;;   :config (setq bongo-enabled-backends '(vlc mpv))
 
+(use-package company
+  :config
+  (setq company-minimum-prefix-length 2
+        company-idle-delay 0.300)
+  (add-hook 'after-init-hook 'global-company-mode))
+
 ;; (use-package dap-mode)
 
 ;; (use-package treemacs
@@ -26,23 +32,27 @@
 ;;         ("M-]" . treemacs)
 ;;         ("C-x t i" . treemacs-find-file)))
 
-(use-package projectile
-  :config
-  (projectile-mode 1)
-  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
-  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+;; (use-package projectile
+;;   :config
+;;   (projectile-mode 1)
+;;   (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+;;   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
-(use-package lsp-mode
-  :hook
-  (c++-mode . lsp-deferred)
-  (c-mode . lsp-deferred)
-  (objc-mode . lsp-deferred)
-  :config
-  (setq lsp-headerline-breadcrumb-enable nil)
-  :commands (lsp lsp-deferred))
+;; (use-package lsp-mode
+;;   :hook
+;;   (c++-mode . lsp-deferred)
+;;   (c-mode . lsp-deferred)
+;;   (objc-mode . lsp-deferred)
+;;   :config
+;;   (setq lsp-headerline-breadcrumb-enable nil)
+;;   :commands (lsp lsp-deferred))
 ;; (use-package lsp-ui
 ;;   :config
 ;;   (lsp-ui-doc-enable nil))
+
+(use-package eglot
+  :config
+  (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd")))
 
 (use-package rust-mode
   :config
@@ -73,17 +83,11 @@
   :config
   (setq ivy-initial-inputs-alist nil)
   (ivy-mode 1))
-(use-package lsp-ivy)
+;; (use-package lsp-ivy)
 
-(use-package company
-  :config
-  (setq company-minimum-prefix-length 2)
-  company-idle-delay 0.300)
-(add-hook 'after-init-hook 'global-company-mode)
-
-(use-package flycheck
-  ;; :init (global-flycheck-mode)
-  )
+;; (use-package flycheck
+;;   ;; :init (global-flycheck-mode)
+;;   )
 
 ;; (use-package evil
 ;;   :init
@@ -146,17 +150,17 @@
 (use-package kaolin-themes)
 (use-package gruvbox-theme)
 
-(use-package dashboard
-  :config
-  (dashboard-setup-startup-hook)
-  (setq dashboard-startup-banner '1
-        dashboard-center-content nil
-        dashboard-items '((recents . 5)
-                          (projects . 5)
-                          (agenda . 5))
-        dashboard-set-heading-icons t
-        dashboard-set-file-icons nil
-        dashboard-set-init-info t
-        initial-buffer-choice (lambda () (get-buffer "*dashboard*"))))
-(add-hook 'dashboard-after-initialize-hook (lambda () (setq dashboard-init-info (greet-other-lang))
-                                             (dashboard-refresh-buffer)))
+;; (use-package dashboard
+;;   :config
+;;   (dashboard-setup-startup-hook)
+;;   (setq dashboard-startup-banner '1
+;;         dashboard-center-content nil
+;;         dashboard-items '((recents . 5)
+;;                           (projects . 5)
+;;                           (agenda . 5))
+;;         dashboard-set-heading-icons t
+;;         dashboard-set-file-icons nil
+;;         dashboard-set-init-info t
+;;         initial-buffer-choice (lambda () (get-buffer "*dashboard*"))))
+;; (add-hook 'dashboard-after-initialize-hook (lambda () (setq dashboard-init-info (greet-other-lang))
+;;                                              (dashboard-refresh-buffer)))
