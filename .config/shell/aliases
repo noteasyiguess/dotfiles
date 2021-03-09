@@ -1,6 +1,9 @@
 # Git
 alias g='git'
 
+# Kitty
+alias icat='kitty +kitten icat'
+
 # Grep
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -20,7 +23,7 @@ alias rm='rm -v'
 alias mkdir='mkdir -pv'
 alias less='less -FRXc'
 
-# DNF
+# dnf
 alias dfi='sudo dnf install'
 alias dfs='sudo dnf search'
 alias dfr='sudo dnf remove'
@@ -51,6 +54,7 @@ alias -g efff="emacs"
 alias -g ettt="emacs -nw"
 alias -g e="emacsclient -t -a ''"
 
+# Utils
 alias cal3='cal -3'
 alias today='date "+%A, %B %-d, %Y"'
 alias weeknum='date +%V'

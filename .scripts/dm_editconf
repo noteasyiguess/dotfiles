@@ -9,6 +9,7 @@ declare -ar options=(
     "Mksh - $HOME/.mkshrc"
     "Fish - $HOME/.config/fish/config.fish"
     "Zsh - $HOME/.zshrc"
+    "Ranger - $HOME/.config/ranger/rc.conf"
     "Tmux - $HOME/.tmux.conf"
     "Shell Aliases - $HOME/.config/shell/aliases"
     "Emacs init.el - $HOME/.emacs.d/init.el"

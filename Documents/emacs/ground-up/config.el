@@ -12,7 +12,7 @@
         (delq (current-buffer)
               (cl-remove-if-not 'buffer-file-name (buffer-list)))))
 
-(defun color-hex-to-float (color)
+(defun mns/color-hex-to-float (color)
   "Converts a 3 component 8-bit RGB color to 32-bit normalized floats"
   (interactive "X8-bit color: ")
   (let ((rr (/ (logand (lsh color -16) #xff) (float #xff)))
@@ -20,22 +20,22 @@
 	(bb (/ (logand (lsh color -0) #xff) (float #xff))))
     (message "%f, %f, %f" rr gg bb)))
 
-(defun set-default-variable-pitch-font ()
+(defun mns/set-default-variable-pitch-font ()
   (set-face-attribute 'variable-pitch nil :font "Input Sans Narrow" :height 165 :weight 'normal))
 
 ;; Easily toggle between a readable font and a basic font
-(setq is-readable-font nil)
-(defun toggle-readable-font ()
+(setq mns/is-readable-font nil)
+(defun mns/toggle-readable-font ()
   "Toggles between the specified default variable pitch font and a more readable font"
   (interactive)
-  (if is-readable-font
+  (if mns/is-readable-font
       (progn
-        (set-default-variable-pitch-font)
+        (mns/set-default-variable-pitch-font)
 	(message "Variable pitch font toggled to the default one")
-	(setq is-readable-font nil))
+	(setq mns/is-readable-font nil))
     (set-face-attribute 'variable-pitch nil :font "OpenDyslexicAlta Nerd Font" :height 170)
     (message "Variable pitch font toggled to the readable one")
-    (setq is-readable-font t))
+    (setq mns/is-readable-font t))
   )
 
 ;; Fix copy-paste in Wayland
@@ -56,9 +56,9 @@
 ;; (setq confirm-kill-processes nil)
 
 ;; When running in daemon mode, the font is not set since there is no frame
-(defun my-frame-init ()
+(defun mns/frame-init ()
   (set-face-attribute 'default nil :font "JetBrainsMono Nerd Font Mono" :height 160)
-  (set-default-variable-pitch-font)
+  (mns/set-default-variable-pitch-font)
   ;; To display unicodes in the range
   (set-fontset-font t '(#x11000 . #x1107f) (font-spec :family "Noto Sans Brahmi"))
   (setq doom-modeline-icon t)
@@ -67,11 +67,11 @@
     (add-hook 'after-make-frame-functions
 	      (lambda (frame)
 		(select-frame frame)
-		(my-frame-init)))
-  (my-frame-init))
+		(mns/frame-init)))
+  (mns/frame-init))
 
 ;; Set tab or spaces
-(defun my-setup-indent (n)
+(defun mns/setup-indent (n)
   ;; java/c/c++
   (setq-default c-basic-offset n)
   ;; rust
@@ -86,22 +86,22 @@
   (setq-default web-mode-code-indent-offset n) ; web-mode, js code in html file
   (setq-default css-indent-offset n) ; css-mode
   )
-(defun my-personal-code-style ()
+(defun mns/personal-code-style ()
   (interactive)
   ;; use space instead of tab
   (setq-default indent-tabs-mode nil)
-  (my-setup-indent 4))
-(my-personal-code-style)
+  (mns/setup-indent 4))
+(mns/personal-code-style)
 
 ;; The menubar is more or less useless in terminal mode
-(defun contextual-menubar (&optional frame)
+(defun mns/contextual-menubar (&optional frame)
   "Display the menubar in FRAME (default: selected frame) if on a
     graphical display, but hide it if in terminal."
   (interactive)
   (set-frame-parameter frame 'menu-bar-lines 
                        (if (display-graphic-p frame)
                            1 0)))
-;; (add-hook 'after-make-frame-functions 'contextual-menubar)
+;; (add-hook 'after-make-frame-functions 'mns/contextual-menubar)
 
 ;; Variables
 ;; (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
@@ -119,23 +119,23 @@
 
 ;; Modeline
 (setq-default mode-line-format
-      '("%e"
-        mode-line-front-space
-        " "
-        mode-line-mule-info
-        mode-line-client
-        mode-line-modified
-        mode-line-remote
-        mode-line-frame-identification
-        mode-line-buffer-identification
-        " "
-        mode-line-position
-        " "
-        ;; mode-line-modes
-        mode-name
-        " "
-        mode-line-misc-info
-        mode-line-end-spaces))
+              '("%e"
+                mode-line-front-space
+                " "
+                mode-line-mule-info
+                mode-line-client
+                mode-line-modified
+                mode-line-remote
+                mode-line-frame-identification
+                mode-line-buffer-identification
+                " "
+                mode-line-position
+                " "
+                ;; mode-line-modes
+                mode-name
+                " "
+                mode-line-misc-info
+                mode-line-end-spaces))
 
 ;; (defun simple-mode-line-render (left right)
 ;;   "Return a string of `window-width' length.
@@ -178,8 +178,8 @@
       modus-themes-completions nil
       modus-themes-variable-pitch-ui t)
 
-;; (counsel-load-theme-action "modus-operandi")
 (counsel-load-theme-action "doom-dark+")
+;; (counsel-load-theme-action "modus-vivendi")
 ;; (counsel-load-theme-action "gruvbox-dark-soft")
 
 ;; Ability to set image dimensions from within the org document

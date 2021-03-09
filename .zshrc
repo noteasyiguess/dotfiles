@@ -17,7 +17,9 @@ set -o noclobber
 setopt shwordsplit # Expand variables around spaces? Something like that
 
 EDITOR='emacsclient -t -a ""'
-export TERM=xterm-direct
+export RANGER_LOAD_DEFAULT_RC=FALSE
+export TERM=xterm-kitty
+# export TERM=xterm-direct
 # export TERM=xterm-256color
 export CARGO_TARGET_DIR=~/.cache/rust_target
 export FZF_DEFAULT_OPTS='--reverse --bind=ctrl-k:kill-line,ctrl-u:clear-query,ctrl-v:page-down,alt-v:page-up'
