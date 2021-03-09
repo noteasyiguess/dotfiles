@@ -43,6 +43,9 @@
  '(pos-tip-foreground-color "#79716c")
  '(rustic-ansi-faces
    ["#282b33" "#e1c1ee" "#5b94ab" "#cfcf9c" "#819cd6" "#a6c1e0" "#7289bc" "#c6c6c6"])
+ '(send-mail-function 'smtpmail-send-it)
+ '(smtpmail-smtp-server "smtp.gmail.com")
+ '(smtpmail-smtp-service 25)
  '(vc-annotate-background "#282b33")
  '(vc-annotate-color-map
    (list

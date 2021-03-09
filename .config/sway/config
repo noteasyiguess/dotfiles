@@ -247,9 +247,11 @@ bindsym XF86AudioPrev exec playerctl previous
 #bindsym XF86MonBrightnessDown exec brightnessctl s 1%-
 
 # All the alt keybindings
-bindsym $mod+Alt+y exec ~/.scripts/ytvideo
+bindsym $mod+Alt+c exec ~/.scripts/dm_editconf
+bindsym $mod+Alt+k exec ~/.scripts/dm_kill
+bindsym $mod+Alt+y exec ~/.scripts/dm_ytvideo
+# bindsym $mod+Alt+l exec pkill -USR1 swayidle
 bindsym $mod+Alt+Up sticky toggle
-bindsym $mod+Alt+l exec pkill -USR1 swayidle
 
 # Autostart
 exec dex \

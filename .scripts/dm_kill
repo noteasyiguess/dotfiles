@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+export BEMENU_OPTS=$(cat ~/.config/shell/bemenu_opts)
+selected=$(ps --user $USER -F |
+               bemenu -l 20 -p 'Who to signal?' |
+               awk '{print $2" "$11}')
+
+declare -ar signals=(
+    "TERM - Termination signal"
+    "KILL - Kill signal"
+    "INT - Interrupt from keyboard"
+    "QUIT - Quit from keyboard"
+    "CONT - Continue if stopped"
+    "STOP - Stop process"
+    "USR1 - User-defined signal 1"
+    "USR2 - User-defined signal 2"
+)
+
+if [[ -n $selected ]]; then
+    how=$(printf '%s\n' "${signals[@]}" | bemenu -l 20 -p "How to signal $selected?")
+    if [[ -n $how ]]; then
+        selpid=$(awk '{print $1}' <<<"$selected")
+        signal=$(awk -F' - ' '{print $1}' <<<"$how")
+        kill "-$signal" $selpid
+        echo Process $selected signaled with $signal
+    else
+        echo No signal selected
+        exit 1
+    fi
+fi

@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+# Choose from a list of configuration files to edit
+
+declare -ar options=(
+    "Alacritty - $HOME/.config/alacritty/alacritty.yml"
+    "Kitty - $HOME/.config/kitty/kitty.conf"
+    "Bash - $HOME/.bashrc"
+    "Mksh - $HOME/.mkshrc"
+    "Fish - $HOME/.config/fish/config.fish"
+    "Zsh - $HOME/.zshrc"
+    "Tmux - $HOME/.tmux.conf"
+    "Shell Aliases - $HOME/.config/shell/aliases"
+    "Emacs init.el - $HOME/.emacs.d/init.el"
+    "Emacs early.el - $HOME/.emacs.d/early.el"
+    "Emacs packages.el - $HOME/.emacs.d/packages.el"
+    "Emacs config.el - $HOME/.emacs.d/config.el"
+    "Gnus - $HOME/.gnus.el"
+    "Mako - $HOME/.config/mako/config"
+    "Sway - $HOME/.config/sway/config"
+    "Sway Lock - $HOME/.config/swaylock/config"
+    "Waybar config - $HOME/.config/waybar/config"
+    "Waybar style - $HOME/.config/waybar/style.css"
+    "MPV - $HOME/.config/mpv/mpv.conf"
+    "Wayfire - $HOME/.config/wayfire.ini"
+    "Zathura - $HOME/.config/zathura/zathurarc"
+)
+
+export BEMENU_OPTS=$(cat ~/.config/shell/bemenu_opts)
+choice=$(printf '%s\n' "${options[@]}" | bemenu --list 20 -p 'Edit Config')
+
+if [[ -n $choice ]]; then
+    file=$(echo "$choice" | awk -F' - ' '{print $NF}')
+    emacsclient -c -a '' "$file"
+else
+    exit 1
+fi

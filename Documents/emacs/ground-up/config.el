@@ -21,7 +21,7 @@
     (message "%f, %f, %f" rr gg bb)))
 
 (defun set-default-variable-pitch-font ()
-  (set-face-attribute 'variable-pitch nil :font "Noto Sans" :height 160 :weight 'normal))
+  (set-face-attribute 'variable-pitch nil :font "Input Sans Narrow" :height 165 :weight 'normal))
 
 ;; Easily toggle between a readable font and a basic font
 (setq is-readable-font nil)
@@ -170,7 +170,17 @@
 ;; Theme
 ;; (load-theme 'gruvbox t) ;; this function doesn't disable other themes
 (require 'counsel)
-(counsel-load-theme-action "doom-gruvbox")
+
+(setq modus-themes-bold-constructs t
+      modus-themes-intense-hl-line nil
+      modus-themes-syntax nil
+      modus-themes-mode-line nil
+      modus-themes-completions nil
+      modus-themes-variable-pitch-ui t)
+
+;; (counsel-load-theme-action "modus-operandi")
+(counsel-load-theme-action "doom-dark+")
+;; (counsel-load-theme-action "gruvbox-dark-soft")
 
 ;; Ability to set image dimensions from within the org document
 (setq org-image-actual-width nil)
@@ -215,6 +225,9 @@
 (setq display-line-numbers-type 'relative
       display-line-numbers-current-absolute nil)
 
+;; Highlight the current line
+(global-hl-line-mode 1)
+
 ;; Smooth scroll
 ;; (setq scroll-step 1
 ;;       scroll-conservatively 10000)
@@ -225,9 +238,9 @@
 (electric-pair-mode 1) ;; Automatically pair parens
 
 ;; Annoyances
-(setq-default cursor-type 'box)
+(setq-default cursor-type '(bar . 2))
 (setq server-client-instructions nil)
-(blink-cursor-mode -1)
+(blink-cursor-mode 1)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (fringe-mode 0)

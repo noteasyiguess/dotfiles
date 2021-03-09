@@ -9,8 +9,26 @@
   (setq w3m-default-display-inline-images t
         w3m-use-favicon nil))
 
+;; (use-package emms
+;;   :config
+;;   (emms-all)
+;;   (setq emms-source-file-default-directory "~/Music/"
+;;         emms-player-list '(emms-player-vlc)
+;;         emms-player-vlc-command-name "cvlc"))
+
 ;; (use-package bongo
-;;   :config (setq bongo-enabled-backends '(vlc mpv))
+;;   :config
+;;   (setq bongo-default-directory "~/Music"
+;;         bongo-insert-whole-directory-trees t
+;;         bongo-mark-played-tracks t
+;;         bongo-display-track-icons nil
+;;         bongo-display-header-icons nil
+;;         bongo-display-playback-mode-indicator t
+;;         bongo-display-inline-playback-progress t
+;;         bongo-enabled-backends '(vlc mpv)
+;;         bongo-vlc-program-name "cvlc"
+;;         bongo-custom-backend-matchers '((vlc local-file "m4a")
+;;                                         (vlc local-file "opus"))))
 
 (use-package company
   :config
