@@ -52,7 +52,7 @@ alias -g et="TERM=xterm-direct emacsclient -t -a ''"
 # alias -g ett="TERM=xterm-direct emacsclient -t -a ''"
 alias -g eff="emacs"
 alias -g ett="TERM=xterm-direct emacs -nw"
-alias -g ei="TERM=xterm-direct emacs -Q -nw --eval '(progn (load-theme (quote tango-dark)) (electric-pair-mode 1) (menu-bar-mode -1))'"
+alias -g ei="TERM=xterm-direct emacs -Q -nw --load /home/mns/.emacs.d/term.el"
 alias -g e="ei"
 
 # Utils
