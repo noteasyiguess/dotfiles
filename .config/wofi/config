@@ -1,0 +1,14 @@
+allow_images=true
+allow_markup=true
+insensitive=true
+image_size=24
+
+key_exit=Control_L-g
+
+key_up=Control_L-p
+key_down=Control_L-n
+key_left=Control_L-b
+key_right=Control_L-f
+
+key_pgdn=Control_L-v
+key_pgup=Alt_R-v

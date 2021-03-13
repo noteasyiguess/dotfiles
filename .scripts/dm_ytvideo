@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 export BEMENU_OPTS=$(cat ~/.config/shell/bemenu_opts)
 qual=$(echo -e '144p\n240p\n360p\n480p\n720p\n1080p\nbestaudio\nworstaudio' | bemenu -l 8 -p "Quality")

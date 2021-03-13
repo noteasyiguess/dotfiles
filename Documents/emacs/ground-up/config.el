@@ -178,9 +178,11 @@
       modus-themes-completions nil
       modus-themes-variable-pitch-ui t)
 
-(counsel-load-theme-action "doom-dark+")
+;; (counsel-load-theme-action "doom-laserwave")
+;; (counsel-load-theme-action "modus-operandi")
 ;; (counsel-load-theme-action "modus-vivendi")
 ;; (counsel-load-theme-action "gruvbox-dark-soft")
+(counsel-load-theme-action "doom-monokai-classic")
 
 ;; Ability to set image dimensions from within the org document
 (setq org-image-actual-width nil)

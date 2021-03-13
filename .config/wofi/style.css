@@ -1,0 +1,50 @@
+/* * {
+   font-family: Clear Sans;
+   font-size: 18px;
+   font-weight: 500;
+   background: #282828;
+}
+
+#window {
+   color: #ebdbb2;
+   opacity: 0.98;
+} */
+
+window {
+    margin: 5px;
+    border: 2px solid white;
+    background-color: rgba(44, 62, 80, 0.8);
+}
+
+#input {
+    margin: 5px;
+    background: transparent;
+    color: white;
+}
+
+#inner-box {
+    margin: 5px;
+}
+
+#outer-box {
+    margin: 5px;
+    border: 2px transparent;
+}
+
+#scroll {
+    margin: 5px;
+}
+
+#text {
+    margin: 5px;
+    color: white;
+}
+
+#entry:selected {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+#text:selected {
+    text-decoration: underline;
+    text-decoration-color: white;
+}
