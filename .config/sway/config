@@ -58,11 +58,11 @@ set $orange0 '#fe8019';
 
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-# set $menu bemenu-run --line-height 34 --fn 'Input Mono Bold' --tb '#fabd2f' --tf '#282828' --fb '#504945' --ff '#ebdbb2' --nb '#3c3836' --nf '#ebdbb2' --hb '#fabd2f' --hf '#282828' -p 'What to 𑀲?' --list 6 -P '𑀣' --ignorecase --no-exec | xargs swaymsg exec --
+set $menu_alt bemenu-run --line-height 34 --fn 'Input Mono Bold' --tb '#fabd2f' --tf '#282828' --fb '#504945' --ff '#ebdbb2' --nb '#3c3836' --nf '#ebdbb2' --hb '#fabd2f' --hf '#282828' -p 'What to 𑀲?' --list 6 -P '𑀣' --ignorecase --no-exec | xargs swaymsg exec --
 set $menu pgrep wofi || wofi --show drun --lines 7 --prompt ''
 
 # Appearance
-font Input Sans Narrow 12
+font Mukta 12
 # border, background, text colors
 client.focused '#fabd2f' '#fabd2f' '#282828'
 client.focused_inactive '#8ec07c' '#8ec07c' '#ebdbb2'
@@ -221,6 +221,21 @@ bindsym $mod+r mode "resize"
 
 # Status Bar:
 # Read `man 5 sway-bar` for more information about this section.
+# swaybar
+# bar {
+#     swaybar_command swaybar
+#     font JetBrainsMono Nerd Font Mono 16.5
+#     position bottom
+#     wrap_scroll yes
+
+#     colors {
+#         background #282828
+#         focused_workspace #7c6f64 #83a598 #1d2021
+#         inactive_workspace #7c6f64 #282828 #ebdbb2
+#         urgent_workspace #7c6f64 #fb4934 #1d2021
+#     }
+# }
+
 bar {
     position top
     mode hide
@@ -253,6 +268,7 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym $mod+Alt+c exec ~/.scripts/dm_editconf
 bindsym $mod+Alt+k exec ~/.scripts/dm_kill
 bindsym $mod+Alt+y exec ~/.scripts/dm_ytvideo
+bindsym $mod+Alt+d exec $menu_alt
 # bindsym $mod+Alt+l exec pkill -USR1 swayidle
 bindsym $mod+Alt+Up sticky toggle
 
@@ -264,6 +280,7 @@ exec dex \
     # /usr/share/applications/polkit-gnome-authentication-agent-1.desktop \
     # /usr/share/applications/redshift-gtk.desktop \
 
+exec lxpolkit
 exec wlsunset -l 28.7 -L 77.1 -t 3250 -T 5000
 exec mako
 exec emacs --daemon

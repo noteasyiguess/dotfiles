@@ -167,6 +167,11 @@
   :config (doom-themes-org-config))
 (use-package kaolin-themes)
 (use-package gruvbox-theme)
+(use-package poet-theme)
+(use-package ample-theme)
+(use-package srcery-theme)
+(use-package zerodark-theme)
+;; (use-package circadian)
 
 ;; (use-package dashboard
 ;;   :config

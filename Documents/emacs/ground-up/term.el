@@ -1,6 +1,6 @@
 ;; Run by emacs -Q -nw alias
 
-(load-theme (quote wheatgrass))
+(load-theme 'modus-vivendi)
 
 (electric-pair-mode 1)
 (menu-bar-mode -1)

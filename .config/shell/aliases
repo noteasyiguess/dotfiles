@@ -14,6 +14,7 @@ alias lgrep='grep -P'
 alias ls='exa'
 alias lt='ls -schanged -l'
 alias lz='ls -ssize -l'
+alias sl='ls'
 
 # Other common utils
 alias diff='diff --color=auto'
@@ -30,6 +31,12 @@ alias dfr='sudo dnf remove'
 alias dfu='sudo dnf upgrade'
 alias dfii='sudo dnf --setopt=install_weak_deps=False install'
 alias dfuu='sudo dnf --setopt=install_weak_deps=False upgrade'
+
+# apt
+alias ati='sudo apt install'
+alias ats='sudo apt search'
+alias atp='sudo apt purge'
+alias atu='sudo apt update && sudo apt full-upgrade'
 
 alias tldr='tldr -p'
 alias ytdl='youtube-dl'

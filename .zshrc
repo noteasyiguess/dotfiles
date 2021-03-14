@@ -16,7 +16,7 @@ compinit
 set -o noclobber
 setopt shwordsplit # Expand variables around spaces? Something like that
 
-EDITOR='emacsclient -t -a ""'
+export EDITOR="emacs -Q -nw --load /home/mns/.emacs.d/term.el"
 export RANGER_LOAD_DEFAULT_RC=FALSE
 export TERM=xterm-kitty
 # export TERM=xterm-direct
@@ -24,6 +24,9 @@ export TERM=xterm-kitty
 export CARGO_TARGET_DIR=~/.cache/rust_target
 export FZF_DEFAULT_OPTS='--reverse --bind=ctrl-k:kill-line,ctrl-u:clear-query,ctrl-v:page-down,alt-v:page-up'
 export BEMENU_OPTS=$(cat ~/.config/shell/bemenu_opts)
+
+# Load the aliases
+source ~/.config/shell/aliases
 
 # Define all the functions at one place
 function add_to_path {
@@ -120,7 +123,7 @@ function take {
 }
 
 function eman {
-    emacsclient -t -a '' --eval "(progn (man \"$*\") (delete-window))"
+    ei --eval "(progn (man \"$*\") (delete-window))"
 }
 
 function emanfzf {
@@ -155,6 +158,8 @@ source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 add_to_path "$HOME/.cargo/bin"
 add_to_path "$HOME/.local/bin"
+add_to_path "/usr/sbin" after
+add_to_path "/sbin" after
 add_to_path "$HOME/.scripts"
 
 # Prompt customizations
@@ -166,9 +171,6 @@ bindkey -s '\ec' 'fzf_cd\n'
 bindkey -s '\eC' 'fzf_cd dot\n'
 bindkey -s '\ee' 'fzf_edit\n'
 bindkey -s '\eE' 'fzf_edit dot\n'
-
-# Load the aliases
-source ~/.config/shell/aliases
 
 # Lastly the glorified quote
 myquote

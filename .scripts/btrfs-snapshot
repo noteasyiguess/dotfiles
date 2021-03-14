@@ -1,0 +1,76 @@
+#!/bin/sh
+
+max_snapshots=3
+
+find_snapshots() {
+    sudo find /.snapshots/ -maxdepth 1 -name 'root-*'
+}
+
+ss_create() {
+    tocreate=/.snapshots/root-$(date +%Y%m%d)
+    if sudo test -e "$tocreate"; then
+        echo Snapshot already exists 1>&2
+    else
+        sudo btrfs subvolume snapshot -r / "$tocreate"
+    fi
+}
+
+case "$1" in
+    create)
+        ss_create
+        ;;
+    recreate)
+        torecreate=/.snapshots/root-$(date +%Y%m%d)
+        if sudo test -e "$torecreate"; then
+            sudo btrfs subvolume delete "$torecreate"
+        else
+            echo No snapshot previously existed 1>&2
+        fi
+        sudo btrfs subvolume snapshot -r / "$torecreate"
+        ;;
+    list)
+        find_snapshots
+        ;;
+    delete)
+        findings=$(find_snapshots)
+        if [ -z "$findings" ]; then
+            echo No snapshots present 1>&2
+            exit 1
+        fi
+        
+        todelete=$(echo -n "$findings" | sort -n | fzf --exit-0)
+        [ -n "$todelete" ] &&
+            sudo btrfs subvolume delete "$todelete" ||
+                echo No snapshot selected 1>&2
+        ;;
+    periodic)
+        ss_create
+        
+        findings=$(find_snapshots | tr ' ' '\n' | sort -n)
+        num_ss=$(echo $findings | tr ' ' '\n' | wc -l)
+        not_needed=$(expr $num_ss - $max_snapshots)
+        if [ $not_needed -gt 0 ]; then
+            for f in $(echo $findings | tr ' ' '\n' | head -n $not_needed); do
+                sudo btrfs subvolume delete "$f"
+            done
+        else
+            echo Only $num_ss snapshots present, no need to delete
+        fi
+        ;;
+    help)
+        echo btrfs-snapshot - Script to facilitate snapshotting the root filesystem '\n\t' \
+             create - Create today\'s snapshot '\n\t' \
+             recreate - Delete and then create today\'s snapshot '\n\t' \
+             list - List all snapshots taken '\n\t' \
+             delete - Interactively delete a snapshot \
+             1>&2
+        ;;
+    '')
+        echo What to do? 1>&2
+        exit 1
+        ;;
+    *)
+        echo Unknown option "$1" 1>&2
+        exit 1
+        ;;
+esac

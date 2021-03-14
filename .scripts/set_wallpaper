@@ -1,0 +1,28 @@
+#!/usr/bin/env sh
+
+backend=swaybg
+image=$(realpath $*)
+
+if [ -n "$image" -a -f "$image" ]; then
+    case "$backend" in
+        oguri)
+            ln -sf "$image" ~/.cache/bg
+            pkill oguri
+            oguri &
+            disown
+            ;;
+	swaybg)
+	    ln -sf "$image" ~/.cache/bg
+	    swaymsg output '*' bg ~/.cache/bg fill
+	    ;;
+        *)
+            echo Unknown backend $backend
+            exit 1
+            ;;
+    esac
+    notify-send "Set wallpaper to $(basename "$image")"
+    exit 0
+fi
+
+notify-send "Failed to set wallpaper, not a file $image"
+exit 1

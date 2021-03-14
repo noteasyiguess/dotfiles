@@ -23,6 +23,9 @@
 (defun mns/set-default-variable-pitch-font ()
   (set-face-attribute 'variable-pitch nil :font "Input Sans Narrow" :height 165 :weight 'normal))
 
+(defun mns/set-default-font ()
+  (set-face-attribute 'default nil :font "BlexMono Nerd Font Mono" :height 165 :weight 'semi-bold))
+
 ;; Easily toggle between a readable font and a basic font
 (setq mns/is-readable-font nil)
 (defun mns/toggle-readable-font ()
@@ -57,7 +60,7 @@
 
 ;; When running in daemon mode, the font is not set since there is no frame
 (defun mns/frame-init ()
-  (set-face-attribute 'default nil :font "JetBrainsMono Nerd Font Mono" :height 160)
+  (mns/set-default-font)
   (mns/set-default-variable-pitch-font)
   ;; To display unicodes in the range
   (set-fontset-font t '(#x11000 . #x1107f) (font-spec :family "Noto Sans Brahmi"))
@@ -106,10 +109,11 @@
 ;; Variables
 ;; (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
-(setq inhibit-startup-screen t)
-;; (setq initial-buffer-choice t)
-(setq inhibit-startup-message t)
-(setq initial-scratch-message nil)
+(setq inhibit-startup-screen t
+      inhibit-startup-message t
+      initial-buffer-choice t
+      initial-scratch-message nil
+      initial-major-mode 'fundamental-mode)
 
 ;; Modes
 (global-tree-sitter-mode 1)
@@ -182,12 +186,16 @@
 ;; (counsel-load-theme-action "modus-operandi")
 ;; (counsel-load-theme-action "modus-vivendi")
 ;; (counsel-load-theme-action "gruvbox-dark-soft")
-(counsel-load-theme-action "doom-monokai-classic")
+(counsel-load-theme-action "doom-monokai-pro")
 
 ;; Ability to set image dimensions from within the org document
 (setq org-image-actual-width nil)
 
 ;; Optimizations, most are stolen from DOOM Emacs
+;; A second, case-insensitive pass over `auto-mode-alist' is time wasted, and
+;; indicates misconfiguration (don't rely on case insensitivity for file names).
+(setq auto-mode-case-fold nil)
+
 (global-so-long-mode 1)
 (setq-default bidi-display-reordering 'left-to-right
 	      bidi-paragraph-direction 'left-to-right
