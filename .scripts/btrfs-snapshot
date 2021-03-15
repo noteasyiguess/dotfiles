@@ -29,7 +29,7 @@ case "$1" in
         sudo btrfs subvolume snapshot -r / "$torecreate"
         ;;
     list)
-        find_snapshots
+        find_snapshots | sort -n
         ;;
     delete)
         findings=$(find_snapshots)
@@ -38,7 +38,7 @@ case "$1" in
             exit 1
         fi
         
-        todelete=$(echo -n "$findings" | sort -n | fzf --exit-0)
+        todelete=$(echo -n "$findings" | tr ' ' '\n' | sort -n | fzf --exit-0)
         [ -n "$todelete" ] &&
             sudo btrfs subvolume delete "$todelete" ||
                 echo No snapshot selected 1>&2
@@ -62,7 +62,8 @@ case "$1" in
              create - Create today\'s snapshot '\n\t' \
              recreate - Delete and then create today\'s snapshot '\n\t' \
              list - List all snapshots taken '\n\t' \
-             delete - Interactively delete a snapshot \
+             delete - Interactively delete a snapshot '\n\t' \
+	     periodic - Create today\'s snapshot, deleting but the lastest $max_snapshots \
              1>&2
         ;;
     '')

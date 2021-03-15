@@ -272,6 +272,9 @@ bindsym $mod+Alt+d exec $menu_alt
 # bindsym $mod+Alt+l exec pkill -USR1 swayidle
 bindsym $mod+Alt+Up sticky toggle
 
+bindsym $mod+Alt+e exec ibus engine xkb:us::eng
+bindsym $mod+Alt+h exec ibus engine m17n:hi:optitransv2
+
 # Autostart
 exec dex \
     /etc/xdg/autostart/gnome-keyring-pkcs11.desktop \
@@ -287,6 +290,8 @@ exec emacs --daemon
 #exec_always foot --server
 #exec oguri
 #exec /usr/libexec/polkit-gnome-authentication-agent-1
+
+exec ibus-daemon -drx
 
 for_window [app_id="wlfw"] floating enable
 #exec killall -SIGUSR1 waybar #Hide at the start

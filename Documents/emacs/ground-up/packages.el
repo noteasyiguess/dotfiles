@@ -4,6 +4,9 @@
   :config (setq all-the-icons-scale-factor 1.0))
 ;; (use-package vterm)
 
+(use-package ibus
+  :config (add-hook 'after-init-hook 'ibus-mode-on))
+
 (use-package w3m
   :config
   (setq w3m-default-display-inline-images t
