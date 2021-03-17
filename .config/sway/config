@@ -279,19 +279,19 @@ bindsym $mod+Alt+h exec ibus engine m17n:hi:optitransv2
 exec dex \
     /etc/xdg/autostart/gnome-keyring-pkcs11.desktop \
     /etc/xdg/autostart/gnome-keyring-secrets.desktop \
-    /etc/xdg/autostart/gnome-keyring-ssh.desktop
-    # /usr/share/applications/polkit-gnome-authentication-agent-1.desktop \
+    /etc/xdg/autostart/gnome-keyring-ssh.desktop \
+    /usr/share/applications/polkit-gnome-authentication-agent-1.desktop
     # /usr/share/applications/redshift-gtk.desktop \
 
 exec lxpolkit
 exec wlsunset -l 28.7 -L 77.1 -t 3250 -T 5000
 exec mako
-exec emacs --daemon
 #exec_always foot --server
 #exec oguri
 #exec /usr/libexec/polkit-gnome-authentication-agent-1
 
-exec ibus-daemon -drx
+# Need to start ibus before emacs, for the ibus-emacs package
+exec ibus-daemon -drx && emacs --daemon
 
 for_window [app_id="wlfw"] floating enable
 #exec killall -SIGUSR1 waybar #Hide at the start

@@ -153,7 +153,7 @@ alias yfab='yfagen best'
 alias yfaw='yfagen worst'
 
 autoload -U colors && colors
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # kitty + complete setup zsh | source /dev/stdin
 
 add_to_path "$HOME/.cargo/bin"

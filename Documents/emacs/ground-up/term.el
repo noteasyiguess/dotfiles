@@ -1,6 +1,6 @@
 ;; Run by emacs -Q -nw alias
 
-(load-theme 'modus-vivendi)
+(load-theme 'wombat)
 
 (electric-pair-mode 1)
 (menu-bar-mode -1)

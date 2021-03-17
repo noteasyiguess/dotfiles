@@ -248,6 +248,7 @@
 (electric-pair-mode 1) ;; Automatically pair parens
 
 ;; Annoyances
+(reset-language-environment)
 (setq-default cursor-type '(bar . 2))
 (setq server-client-instructions nil)
 (blink-cursor-mode 1)

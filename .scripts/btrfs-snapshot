@@ -58,7 +58,7 @@ case "$1" in
         fi
         ;;
     help)
-        echo btrfs-snapshot - Script to facilitate snapshotting the root filesystem '\n\t' \
+        echo -e btrfs-snapshot - Script to facilitate snapshotting the root filesystem '\n\t' \
              create - Create today\'s snapshot '\n\t' \
              recreate - Delete and then create today\'s snapshot '\n\t' \
              list - List all snapshots taken '\n\t' \
