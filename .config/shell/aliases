@@ -48,7 +48,7 @@ alias duf='du -sh *'
 alias nano='nano -W'
 alias wget='wget -c'
 alias bc='bc --mathlib --quiet'
-# alias fd='fdfind -I'
+alias fd='fdfind -I'
 
 # Vim
 # alias vim='nvim'
