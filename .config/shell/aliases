@@ -35,6 +35,7 @@ alias dfuu='sudo dnf --setopt=install_weak_deps=False upgrade'
 
 # apt
 alias ati='sudo apt install'
+alias atf='sudo apt info'
 alias ats='sudo apt search'
 alias atp='sudo apt purge'
 alias atu='sudo apt update && sudo apt full-upgrade'
@@ -55,19 +56,20 @@ alias fd='fdfind -I'
 
 # Emacs
 alias -g ef="emacsclient -nc -a ''"
-alias -g et="TERM=xterm-direct emacsclient -t -a ''"
+alias -g et="TERM=$EM_TERM emacsclient -t -a ''"
 # alias -g eff="emacsclient -nc -a ''"
-# alias -g ett="TERM=xterm-direct emacsclient -t -a ''"
+# alias -g ett="TERM=$EM_TERM emacsclient -t -a ''"
 alias -g eff="emacs"
-alias -g ett="TERM=xterm-direct emacs -nw"
-alias -g ei="TERM=xterm-direct emacs -Q -nw --load /home/mns/.emacs.d/term.el"
-alias -g e="ei"
+alias -g ett="TERM=$EM_TERM emacs -nw"
+# alias -g ei="TERM=$EM_TERM emacs -Q -nw --load /home/mns/.emacs.d/term.el"
+alias -g e="et"
 
 # Utils
 alias cal3='cal -3'
 alias today='date "+%A, %B %-d, %Y"'
 alias weeknum='date +%V'
 alias imv='imv-wayland'
+alias py='python3'
 
 alias myip='dig @resolver4.opendns.com myip.opendns.com +short' 
 alias myip4='dig @resolver4.opendns.com myip.opendns.com +short -4'

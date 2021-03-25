@@ -18,7 +18,9 @@ setopt shwordsplit # Expand variables around spaces? Something like that
 
 export EDITOR="emacs -Q -nw --load /home/mns/.emacs.d/term.el"
 export RANGER_LOAD_DEFAULT_RC=FALSE
-export TERM=xterm-kitty
+EM_TERM=konsole-direct
+# export TERM=xterm-kitty
+export TERM=konsole-256color
 # export TERM=xterm-direct
 # export TERM=xterm-256color
 export CARGO_TARGET_DIR=~/.cache/rust_target
@@ -51,12 +53,20 @@ function myquote {
     local -r day_file=~/.cache/last_quote_day
     local -r quote_file=~/.cache/last_quote
 
-    local quote= # declare the variable local in advance
+    function _myquote_get_quote {
+        cat $quote_file
+    }
 
     # Used in many places
     function _myquote_new_quote {
-        quote=$(fortune)
-        echo -n $quote >| $quote_file
+        WHICH=$((RANDOM % 3))
+        if [[ $WHICH == 0 ]]; then
+            fortune >| $quote_file
+        elif [[ $WHICH == 1 ]]; then
+            fortune ~/.config/shell/fortunes_bg >| $quote_file
+        else
+            display-dhammapada -m >| $quote_file
+        fi
     }
 
     function _myquote_new_day {
@@ -68,7 +78,7 @@ function myquote {
         if [[ $day == $(cat $day_file) ]]; then
             # Same day, just read the cached quote
             if [[ -f $quote_file ]]; then
-                quote=$(cat $quote_file)
+                true
             else
                 _myquote_new_quote
             fi
@@ -84,12 +94,13 @@ function myquote {
         _myquote_new_quote
     fi
 
-    # We don't want then to pollute our shell
-    unset -f _myquote_new_{day,quote}
-
     echo -en "\n========== Quote of the day ==========\n\n"
-    echo $quote
+    _myquote_get_quote
     echo -en "\n======================================\n\n"
+
+    # We don't want then to pollute our shell environment
+    unset -f _myquote_new_{day,quote}
+    unset -f _myquote_get_quote
 }
 
 function fzf_cd {
@@ -154,13 +165,15 @@ alias yfaw='yfagen worst'
 
 autoload -U colors && colors
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # kitty + complete setup zsh | source /dev/stdin
 
 add_to_path "$HOME/.cargo/bin"
 add_to_path "$HOME/.local/bin"
+add_to_path "$HOME/.scripts"
+add_to_path "$HOME/.emacs.d/bin"
 add_to_path "/usr/sbin" after
 add_to_path "/sbin" after
-add_to_path "$HOME/.scripts"
 
 # Prompt customizations
 readonly _myprompt_csi=$(printf '\e[')
