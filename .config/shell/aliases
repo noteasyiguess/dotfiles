@@ -24,6 +24,10 @@ alias rm='rm -v'
 alias mkdir='mkdir -pv'
 alias less='less -FRXc'
 alias sc='systemctl'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias wgetn='wget -T3 -t1000 -c'
 
 # dnf
 alias dfi='sudo dnf install'
@@ -49,7 +53,7 @@ alias duf='du -sh *'
 alias nano='nano -W'
 alias wget='wget -c'
 alias bc='bc --mathlib --quiet'
-alias fd='fdfind -I'
+# alias fd='fdfind -I'
 
 # Vim
 # alias vim='nvim'

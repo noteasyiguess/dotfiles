@@ -1,5 +1,5 @@
 if exists('g:GtkGuiLoaded')
-  call rpcnotify(1, 'Gui', 'Font', 'agave Nerd Font Mono 17')
+  call rpcnotify(1, 'Gui', 'Font', 'Cascadia Code PL 17')
   "call rpcnotify(1, 'Gui', 'Option', 'Popupmenu', 0)
   "call rpcnotify(1, 'Gui', 'Option', 'Tabline', 0)
   "call rpcnotify(1, 'Gui', 'Command', 'SetCursorBlink', '10')

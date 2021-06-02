@@ -15,6 +15,7 @@ compinit
 # Personal
 set -o noclobber
 setopt shwordsplit # Expand variables around spaces? Something like that
+setopt hist_ignore_dups
 
 export EDITOR="emacs -Q -nw --load /home/mns/.emacs.d/term.el"
 export RANGER_LOAD_DEFAULT_RC=FALSE
@@ -59,13 +60,13 @@ function myquote {
 
     # Used in many places
     function _myquote_new_quote {
-        WHICH=$((RANDOM % 3))
+        WHICH=$((RANDOM % 2))
         if [[ $WHICH == 0 ]]; then
             fortune >| $quote_file
-        elif [[ $WHICH == 1 ]]; then
-            fortune ~/.config/shell/fortunes_bg >| $quote_file
+        #elif [[ $WHICH == 1 ]]; then
+            #display-dhammapada -m >| $quote_file
         else
-            display-dhammapada -m >| $quote_file
+            fortune ~/.config/shell/fortunes_bg >| $quote_file
         fi
     }
 
@@ -164,8 +165,8 @@ alias yfab='yfagen best'
 alias yfaw='yfagen worst'
 
 autoload -U colors && colors
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 # kitty + complete setup zsh | source /dev/stdin
 
 add_to_path "$HOME/.cargo/bin"

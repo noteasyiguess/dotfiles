@@ -58,19 +58,21 @@ set $orange0 '#fe8019';
 
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu_alt bemenu-run --line-height 34 --fn 'Input Mono Bold' --tb '#fabd2f' --tf '#282828' --fb '#504945' --ff '#ebdbb2' --nb '#3c3836' --nf '#ebdbb2' --hb '#fabd2f' --hf '#282828' -p 'What to 𑀲?' --list 6 -P '𑀣' --ignorecase --no-exec | xargs swaymsg exec --
+set $menu bemenu-run --line-height 34 --fn 'Roboto Bold 14' --tb '#fabd2f' --tf '#282828' --fb '#504945' --ff '#ebdbb2' --nb '#3c3836' --nf '#ebdbb2' --hb '#fabd2f' --hf '#282828' -p 'What to 𑀲?' --list 6 -P '𑀣' --ignorecase --no-exec | xargs swaymsg exec --
 # set $menu pgrep wofi || wofi --show drun --lines 7 --prompt ''
-set $menu rofi -modi drun -show drun
+# set $menu rofi -modi drun -show drun
+
+# include /etc/sway/config.d/*
 
 # Appearance
-font Mukta 12
+font Roboto Bold 14
 # border, background, text colors
 client.focused '#fabd2f' '#fabd2f' '#282828'
 client.focused_inactive '#8ec07c' '#8ec07c' '#ebdbb2'
 client.unfocused '#282828' '#282828' '#ebdbb2'
 
 ### Output configuration
-# output * bg ~/.cache/bg fill
+output * bg ~/.cache/bg fill
 
 ### Idle configuration
 exec swayidle -w \
@@ -88,6 +90,7 @@ input type:touchpad {
 
 input type:keyboard {
     xkb_options caps:swapescape
+    xkb_options lv3:ralt_switch
 }
     #xkb_options caps:swapescape
     #xkb_options ctrl:swapcaps
@@ -238,9 +241,9 @@ bindsym $mod+r mode "resize"
 # }
 
 bar {
-    position top
-    mode hide
-    swaybar_command waybar
+   position top
+   mode hide
+   swaybar_command waybar
 }
 bindsym $mod+y exec killall -SIGUSR1 waybar
 
@@ -262,8 +265,8 @@ bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
-#bindsym XF86MonBrightnessUp exec brightnessctl s +1%
-#bindsym XF86MonBrightnessDown exec brightnessctl s 1%-
+bindsym XF86MonBrightnessUp exec brightnessctl s +1%
+bindsym XF86MonBrightnessDown exec brightnessctl s 1%-
 
 # All the alt keybindings
 bindsym $mod+Alt+c exec ~/.scripts/dm_editconf
@@ -273,8 +276,9 @@ bindsym $mod+Alt+d exec $menu_alt
 # bindsym $mod+Alt+l exec pkill -USR1 swayidle
 bindsym $mod+Alt+Up sticky toggle
 
-bindsym $mod+Alt+e exec ibus engine xkb:us::eng
-bindsym $mod+Alt+h exec ibus engine m17n:hi:optitransv2
+bindsym $mod+Alt+h exec ibus engine xkb:in:hin-wx:hin
+bindsym $mod+Alt+j exec ibus engine xkb:us::eng
+# bindsym $mod+Alt+h exec ibus engine m17n:hi:optitransv2
 
 # Autostart
 exec dex \
@@ -284,9 +288,9 @@ exec dex \
     /usr/share/applications/polkit-gnome-authentication-agent-1.desktop
     # /usr/share/applications/redshift-gtk.desktop \
 
-exec lxpolkit
-# exec wlsunset -l 28.7 -L 77.1 -t 3250 -T 5000
-exec redshift
+# exec lxpolkit
+exec wlsunset -l 28.7 -L 77.1 -t 4250 -T 5000
+# exec redshift
 exec mako
 #exec_always foot --server
 #exec oguri
@@ -297,5 +301,3 @@ exec ibus-daemon -drx && emacs --daemon
 
 for_window [app_id="wlfw"] floating enable
 #exec killall -SIGUSR1 waybar #Hide at the start
-
-include /etc/sway/config.d/*

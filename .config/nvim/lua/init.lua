@@ -1,4 +1,4 @@
-require 'plugins'
+require 'plugs'
+require 'config'
 require 'opts'
-require 'setup'
-require 'binds'
+require 'keys'

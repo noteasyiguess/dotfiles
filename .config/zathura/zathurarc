@@ -85,3 +85,6 @@ set adjust-open width
 # map <A-\<> goto top
 # map <A-\>> goto bottom
 # map <A-v> scroll full-up
+
+# Enable copy to clipboard
+set selection-clipboard clipboard
